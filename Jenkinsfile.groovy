@@ -11,9 +11,9 @@ pipeline {
         spec:
           containers:
           - name: build
-            image: maven:3.6.3-jdk-11
+            #image: maven:3.6.3-jdk-11
             #custom image
-            #image: caternberg/ci-toolbox
+            image: caternberg/ci-toolbox
             command:
             - cat
             tty: true
@@ -38,6 +38,15 @@ pipeline {
             steps {
                 // sh "ls -ltr /usr/local/bin"
                 sh "helloworld.sh"
+                sh "jq-sample-step.sh"
+            }
+        }
+        stage('Stage-Sequence-Wrapper') {
+            environment {
+                WORLD = "Berlin"
+            }
+            steps {
+                sh "stage1-sequence.sh"
             }
         }
     }
