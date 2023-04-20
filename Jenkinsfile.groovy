@@ -36,9 +36,11 @@ pipeline {
                 WORLD = "Stockholm!!"
             }
             steps {
-                // sh "ls -ltr /usr/local/bin"
                 sh "helloworld.sh"
                 sh "jq-sample-step.sh"
+
+                //will fail because mvn is not installed yet
+               //sh "mvn-version.sh"
             }
         }
         stage('Stage-Sequence-Wrapper') {
@@ -47,8 +49,10 @@ pipeline {
             }
             steps {
                 sh "stage-sequence.sh"
-//                sh '''
-//                      find /usr/local/bin  -type f -name "*.sh" -exec bash {} \\;
+
+
+//              sh '''
+//                  find /usr/local/bin  -type f -name "*.sh" -exec bash {} \\;
 //                '''
             }
         }
