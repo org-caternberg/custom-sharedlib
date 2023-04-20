@@ -31,7 +31,7 @@ pipeline {
         }
     }
     stages {
-        stage('Stage1') {
+        stage('Stage') {
             environment {
                 WORLD = "Stockholm!!"
             }
@@ -46,7 +46,10 @@ pipeline {
                 WORLD = "Berlin"
             }
             steps {
-                sh "stage1-sequence.sh"
+                sh "stage-sequence.sh"
+//                sh '''
+//                      find /usr/local/bin  -type f -name "*.sh" -exec bash {} \\;
+//                '''
             }
         }
     }
