@@ -49,8 +49,6 @@ pipeline {
             }
             steps {
                 sh "stage-sequence.sh"
-
-
 //              sh '''
 //                  find /usr/local/bin  -type f -name "*.sh" -exec bash {} \\;
 //                '''
