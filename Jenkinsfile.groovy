@@ -21,6 +21,7 @@ pipeline {
             - name: config-volume
               mountPath: /usr/local/bin
           volumes:
+            #https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#populate-a-volume-with-data-stored-in-a-configmap
             - name: config-volume
               configMap:
                 # Provide the name of the ConfigMap containing the files you want
