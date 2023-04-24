@@ -1,6 +1,6 @@
 def call(String newVersion){
   try{
-    	sh "mvn versions:set -DnewVersion=${newVersion} -DgenerateBackupPoms=false -DprocessAllModules=true"
+    	sh "mvn -q versions:set -DnewVersion=${newVersion} -DgenerateBackupPoms=false -DprocessAllModules=true"
   }catch (Exception e) {
       throw e;
   }
