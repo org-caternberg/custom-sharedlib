@@ -32,18 +32,48 @@ pipeline {
         }
     }
     stages {
-        stage('Stage') {
+        stage('helloworld') {
             environment {
                 WORLD = "Stockholm!!"
             }
             steps {
-                sh "helloworld.sh"
-                sh "jq-sample-step.sh"
-
-                //will fail because mvn is not installed yet
-               //sh "mvn-version.sh"
+                hello "World"
             }
         }
+        stage('clone') {
+            environment {
+                REPO_URL=https://github.com/pipeline-demo-caternberg/maven-executable-jar-example.git
+                REPO_BRANCH=master
+                GIT_USERNAME=xxx
+                GIT_PASSWORD="XXX"
+                GIT_CLONE_DIR=.tmp/app
+                GIT_SHALLOW_DEPTH=1
+            }
+            steps {
+                sh "cloneAndCheckoutBranch.sh"
+            }
+        }
+        stage('build') {
+            environment {
+                WORLD = "Stockholm!!"
+                REPO_URL=https://github.com/pipeline-demo-caternberg/maven-executable-jar-example.git
+                REPO_BRANCH=master
+                GIT_USERNAME=xxx
+                GIT_PASSWORD="XXX"
+                GIT_CLONE_DIR=.tmp/app
+                GIT_SHALLOW_DEPTH=1
+            }
+            steps {
+                sh "cloneAndCheckoutBranch.sh"
+                sh "helloworld.sh"
+                sh "jq-sample-step.sh"
+                sh "newSematicVersion.sh -m 1.1.1"
+                sh "build.sh"
+                //will fail because mvn is not installed yet
+                //sh "mvn-version.sh"
+            }
+        }
+
         stage('Stage-Sequence-Wrapper') {
             environment {
                 WORLD = "Berlin"
