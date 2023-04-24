@@ -50,4 +50,6 @@ then
   ((a[2]++))
 fi
 
-echo "${a[0]}.${a[1]}.${a[2]}"
+#echo "${a[0]}.${a[1]}.${a[2]}"
+RESULT="${a[0]}.${a[1]}.${a[2]}"
+echo "##RESULT##:$RESULT"

@@ -1,9 +1,6 @@
-def call(String ver) {
-    def newVersion = sh(returnStdout: true, script: "newSematicVersion.sh -m ${ver}")
-    echo "Output: ${newVersion}"
-    try{
-        sh "mvn versions:set -DnewVersion=${newVersion} -DgenerateBackupPoms=false -DprocessAllModules=true"
-    }catch (Exception e) {
-        throw e;
-    }
+def call(String version) {
+    echo "param world: ${version}"
+    def result = sh(returnStdout: true, script: "newSematicVersion.sh ${version}")
+    echo "RESULT" + result.substring(result.lastIndexOf("##RESULT##:") + 1)
+    env.NEW_VERSION=result.substring(result.lastIndexOf("##RESULT##:") + 1)
 }
