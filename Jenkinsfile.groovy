@@ -68,7 +68,7 @@ pipeline {
         stage('build') {
             steps {
                 container("build") {
-
+                    newSemVersion 1.0
                     mvnVersionsSet "1.1"
                     mvn "clean install"
                 }
