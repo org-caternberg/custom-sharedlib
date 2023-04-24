@@ -1,3 +1,4 @@
+library 'shared-lib' _
 pipeline {
     agent {
         kubernetes {
@@ -13,7 +14,8 @@ pipeline {
           - name: build
             #image: maven:3.6.3-jdk-11
             #custom image
-            image: caternberg/ci-toolbox
+            image: caternberg/ci-toolbox:latest
+            imagePullPolicy: Always
             command:
             - cat
             tty: true
@@ -33,11 +35,8 @@ pipeline {
     }
     stages {
         stage('helloworld') {
-            environment {
-                WORLD = "Stockholm!!"
-            }
             steps {
-                hello "World"
+                helloworld "World"
             }
         }
         stage('clone') {
