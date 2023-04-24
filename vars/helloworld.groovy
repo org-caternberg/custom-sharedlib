@@ -1,6 +1,6 @@
-def call(String ver) {
+def call(String world) {
     environment {
-        WORLD = "Stockholm!!"
+        WORLD = "${world}"
     }
     sh "helloworld.sh"
 }
