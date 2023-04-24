@@ -3,7 +3,7 @@ def call(String goals) {
     // sh "helloworld.sh ${world}"
     configFileProvider([configFile(fileId: 'global-maven-settings', variable: 'MAVEN_SETTINGS_XML')]) {
         sh "cat ${MAVEN_SETTINGS_XML}"
-        sh("mvn  ${goals}")
+        sh "mvn -s ${MAVEN_SETTINGS_XML} ${goals}"
     }
 }
 
