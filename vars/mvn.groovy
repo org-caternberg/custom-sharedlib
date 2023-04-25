@@ -1,6 +1,6 @@
 def call( goals = "clean install") {
     echo "param goals: ${goals}"
-    sh "mvn -q -${goals}"
+    sh "mvn -q ${goals}"
 }
 @NonCPS
 def withConfigFileProvider( goals  = "clean install", configFileProviderID = "global-maven-settings") {
