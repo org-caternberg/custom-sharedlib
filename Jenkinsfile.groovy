@@ -64,14 +64,15 @@ pipeline {
             }
         }
 
-
         stage('build') {
             steps {
                 container("build") {
-                    newSemVersion 1.0.1
-                    echo "$NEW_VERSION"
-                    mvnVersionsSet "1.1"
-                    mvn "clean install"
+//                    newSemVersion 1.0.1
+//                    echo "1.0.1 -> $NEW_VERSION"
+//                    mvnVersionsSet "$NEW_VERSION"
+//                    mvn "clean install"
+
+                    buildSteps
                 }
             }
         }

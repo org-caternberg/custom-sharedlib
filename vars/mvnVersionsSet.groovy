@@ -1,7 +1,3 @@
-def call(String newVersion){
-  try{
-    	sh "mvn -q versions:set -DnewVersion=${newVersion} -DgenerateBackupPoms=false -DprocessAllModules=true"
-  }catch (Exception e) {
-      throw e;
-  }
+def call(String version){
+  	sh "mvn -q versions:set -DnewVersion=${version} -DgenerateBackupPoms=false -DprocessAllModules=true"
 }

@@ -3,5 +3,6 @@ def call(String world) {
    // sh "helloworld.sh ${world}"
     def result = sh(returnStdout: true, script: "helloworld.sh ${world}")
     echo "RESULT" + result
+    return result
 }
 

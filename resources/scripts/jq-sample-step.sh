@@ -2,12 +2,12 @@
 #see JQ documentation and samples:
 #https://medium.com/how-tos-for-coders/https-medium-com-how-tos-for-coders-parse-json-data-using-jq-and-curl-from-command-line-5aa8a05cd79b
 #https://stedolan.github.io/jq/manual/
-
-
-#simple git fake data: TODO: addjust to BitBucket REST API and specific command
-GIT_REPSONSE_JSON=$(curl -s https://www.githubstatus.com/api/v2/status.json)
-echo $GIT_REPSONSE_JSON | jq
-echo $GIT_REPSONSE_JSON | jq '.page.url'
+set -xeu
+#JSONDATA=$(curl -s https://www.githubstatus.com/api/v2/status.json)
+JSONDATA=$1
+JQARG=$2
+#echo $JSONDATA | jq
+echo $JSONDATA | jq $JQARG
 #{
 #  "page": {
 #    "id": "kctbh9vrtdwd",
