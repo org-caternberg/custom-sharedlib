@@ -1,4 +1,4 @@
-def call(String goals = "clean install") {
+def call( goals = "clean install") {
     echo "param goals: ${goals}"
     // sh "helloworld.sh ${world}"
     configFileProvider([configFile(fileId: 'global-maven-settings', variable: 'MAVEN_SETTINGS_XML')]) {
@@ -7,7 +7,7 @@ def call(String goals = "clean install") {
     }
 }
 
-def withConfigFileProvider(String goals  = "clean install",String configFileProviderID = "global-maven-settings") {
+def withConfigFileProvider( goals  = "clean install", configFileProviderID = "global-maven-settings") {
     echo "param goals: ${goals}, configFileProviderID: ${configFileProviderID}"
     configFileProvider([configFile(fileId: "${configFileProviderID}", variable: 'MAVEN_SETTINGS_XML')]) {
         //sh "cat ${MAVEN_SETTINGS_XML}"
