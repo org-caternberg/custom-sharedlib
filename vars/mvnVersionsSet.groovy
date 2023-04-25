@@ -1,3 +1,3 @@
 def call(String version){
-  	sh "mvn  versions:set -DnewVersion=${version} -DprocessAllModules=true"
+  	sh "mvn  versions:set -DprocessAllModules=true -DnewVersion=${version}"
 }
