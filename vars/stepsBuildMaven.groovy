@@ -1,8 +1,9 @@
 def call() {
-    pom = readMavenPom(file: 'pom.xml')
+    //readMavenPom requires the pipeline-utility plugin
+    def pom = readMavenPom(file: 'pom.xml')
     def pom_version = pom.version
-    def new_version=newSemVersion pom_version
-    echo "1.0.1 -> $NEW_VERSION = ${new_version}"
+    def new_version=newSemVersion pom_version+"-SNAPSHOT"
+    echo "OLD_VERSION: ${pom_version} -> NEW_VERSION  = ${new_version}"
     mvnVersionsSet "${new_version}"
     mvn "clean install"
 }
