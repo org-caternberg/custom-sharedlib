@@ -85,10 +85,7 @@ pipeline {
         stage('QA') {
             steps {
                 container("sonar-scanner-cli") {
-                    sh "sonar-scanner version"
-                }
-                container("sonar-scanner-cli") {
-                    sh "sonar-scanner version"
+                    sh "sonar-scanner -version"
                 }
             }
         }
