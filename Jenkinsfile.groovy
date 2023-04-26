@@ -80,12 +80,17 @@ pipeline {
                         stepsBuildMaven ()
                     }
                 }
+                container("tools") {
+                    dir(".app"){
+                        bbResponseHandlerJQ ()
+                    }
+                }
             }
         }
         stage('QA') {
             steps {
                 container("sonar-scanner-cli") {
-                    sh "sonar-scanner -version"
+                    sh "sonar-scanner -h"
                 }
             }
         }
