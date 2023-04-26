@@ -20,6 +20,15 @@ pipeline {
             volumeMounts:
             - name: config-volume
               mountPath: /usr/local/bin
+          - name: sonar-scanner-cli
+            image: sonarsource/sonar-scanner-cli
+            imagePullPolicy: Always
+            command:
+            - cat
+            tty: true
+            volumeMounts:
+            - name: config-volume
+              mountPath: /usr/local/bin
           - name: build
             image: maven:3.6.3-jdk-11
             imagePullPolicy: Always
@@ -67,12 +76,17 @@ pipeline {
         stage('build') {
             steps {
                 container("build") {
-//                    newSemVersion 1.0.1
-//                    echo "1.0.1 -> $NEW_VERSION"
-//                    mvnVersionsSet "$NEW_VERSION"
-//                    mvn "clean install"
-
-                    buildSteps
+                    stepsBuildMaven ()
+                }
+            }
+        }
+        stage('QA') {
+            steps {
+                container("sonar-scanner-cli") {
+                    sh "sonar-scanner version"
+                }
+                container("sonar-scanner-cli") {
+                    sh "sonar-scanner version"
                 }
             }
         }
