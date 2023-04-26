@@ -63,7 +63,7 @@ pipeline {
                 REPO_BRANCH = "master"
                 GIT_USERNAME = "xxx"
                 GIT_PASSWORD = "XXX"
-                GIT_CLONE_DIR = "."
+                GIT_CLONE_DIR = ".app"
                 GIT_SHALLOW_DEPTH = "1"
             }
             steps {
@@ -76,7 +76,9 @@ pipeline {
         stage('build') {
             steps {
                 container("build") {
-                    stepsBuildMaven ()
+                    dir(".app"){
+                        stepsBuildMaven ()
+                    }
                 }
             }
         }
