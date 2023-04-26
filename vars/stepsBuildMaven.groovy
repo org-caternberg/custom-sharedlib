@@ -6,4 +6,6 @@ def call() {
     echo "OLD_VERSION: ${pom_version} -> NEW_VERSION  = ${new_version}"
     mvnVersionsSet "${new_version}"
     mvn "clean install"
+
+    bbResponseHandlerJQ ()
 }
