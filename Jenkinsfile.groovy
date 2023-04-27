@@ -58,6 +58,7 @@ pipeline {
             }
         }
         stage('clone') {
+            //The cloneAndCheckoutBranch.sh scripts expects the following environment variables
             environment {
                 REPO_URL = "https://github.com/pipeline-demo-caternberg/maven-executable-jar-example.git"
                 REPO_BRANCH = "master"
@@ -90,8 +91,11 @@ pipeline {
         stage('QA') {
             steps {
                 container("sonar-scanner-cli") {
-                    sh "sonar-scanner -h"
+                    //could be moved to shared library for pre-validation and property sanity checks
+                    sh "sonar-scanner -v"
+                    //add more steps for QA
                 }
+                //container(...)
             }
         }
     }
