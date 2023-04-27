@@ -1,3 +1,4 @@
+library 'shared-lib' _
 pipeline {
     agent {
         kubernetes {
@@ -10,10 +11,27 @@ pipeline {
             some-label: some-label-value
         spec:
           containers:
+          - name: tools
+            image: caternberg/ci-toolbox:latest
+            imagePullPolicy: Always
+            command:
+            - cat
+            tty: true
+            volumeMounts:
+            - name: config-volume
+              mountPath: /usr/local/bin
+          - name: sonar-scanner-cli
+            image: sonarsource/sonar-scanner-cli
+            imagePullPolicy: Always
+            command:
+            - cat
+            tty: true
+            volumeMounts:
+            - name: config-volume
+              mountPath: /usr/local/bin
           - name: build
-            #image: maven:3.6.3-jdk-11
-            #custom image
-            image: caternberg/ci-toolbox
+            image: maven:3.6.3-jdk-11
+            imagePullPolicy: Always
             command:
             - cat
             tty: true
@@ -32,29 +50,53 @@ pipeline {
         }
     }
     stages {
-        stage('Stage') {
-            environment {
-                WORLD = "Stockholm!!"
-            }
+        stage('helloworld') {
             steps {
-                sh "helloworld.sh"
-                sh "jq-sample-step.sh"
-
-                //will fail because mvn is not installed yet
-               //sh "mvn-version.sh"
+                container("tools") {
+                    helloworld "World"
+                }
             }
         }
-        stage('Stage-Sequence-Wrapper') {
+        stage('clone') {
+            //The cloneAndCheckoutBranch.sh scripts expects the following environment variables
             environment {
-                WORLD = "Berlin"
+                REPO_URL = "https://github.com/pipeline-demo-caternberg/maven-executable-jar-example.git"
+                REPO_BRANCH = "master"
+                GIT_USERNAME = "xxx"
+                GIT_PASSWORD = "XXX"
+                GIT_CLONE_DIR = ".app"
+                GIT_SHALLOW_DEPTH = "1"
             }
             steps {
-                sh "stage-sequence.sh"
-//              sh '''
-//                  find /usr/local/bin  -type f -name "*.sh" -exec bash {} \\;
-//                '''
+                container("tools") {
+                    sh "cloneAndCheckoutBranch.sh"
+                }
+            }
+        }
+
+        stage('build') {
+            steps {
+                container("build") {
+                    dir(".app"){
+                        stepsBuildMaven ()
+                    }
+                }
+                container("tools") {
+                    dir(".app"){
+                        bbResponseHandlerJQ ()
+                    }
+                }
+            }
+        }
+        stage('QA') {
+            steps {
+                container("sonar-scanner-cli") {
+                    //could be moved to shared library for pre-validation and property sanity checks
+                    sh "sonar-scanner -v"
+                    //add more steps for QA
+                }
+                //container(...)
             }
         }
     }
 }
-

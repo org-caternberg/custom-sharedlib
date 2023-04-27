@@ -4,7 +4,7 @@ LABEL maintainerAndreas Caternberg <andreas.caternberg@gmail.com>
 
 ENV DOCKER_VERSION=18.06.1-ce KUBECTL_VERSION=v1.20 HELM_VERSION=v3.0 JQ_VERSION=1.6
 
-ADD /scripts /opt/ci-toolbox
+ADD /resources/scripts /opt/ci-toolbox
 
 RUN chmod +x /opt/ci-toolbox/* \
     && for file in /opt/ci-toolbox/*.sh ;do ln -s $file /usr/local/bin;done
