@@ -35,7 +35,7 @@ Libraries on Folder Level might require approvals. Even when a approval is requi
 
 # Next Steps
 
-* review of additional certain steps: what can be externalized or optimized?
+* Review of additional certain steps: what can be externalized or optimized?
 * Review and redesign/refactor more SharedLib step code. Identify step for the common library and identify what team specific.
 * What should be in /src? What should be in /vars? When to use groovy and when to use shell?
 * POC: implement/migrate an existing Pipeline Job with the "new Design"
