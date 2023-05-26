@@ -18,12 +18,13 @@ pipeline {
                     script {
                         //read pipeline.yaml properties
                         ci = readYaml file: "ci.yaml"
-                        echo "${ci}"
+                        echo ci.params
                         //sample common setting
-                        properties([parameters([string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)])])
-                        for(int param in ci.params) {
-                                 println(param.value);
-                              }
+                        properties(
+                                [parameters([string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)])],
+                                ci.params
+                        )
+
                     }
                 }
             }
