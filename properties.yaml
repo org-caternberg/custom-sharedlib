@@ -1,0 +1,3 @@
+parameters:
+  - name: "myparam1"
+    value: "[string(defaultValue: 'value2', description: 'desc1', name: 'param2', trim: true)]"
