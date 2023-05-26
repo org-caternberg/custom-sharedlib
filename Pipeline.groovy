@@ -2,8 +2,15 @@
 
 //TODO:
 //read pipeline.yaml properties
-pipelineProperties = readYaml "properties.yaml"
-
+ci = readYaml "ci.yaml"
+properties(
+        [
+                parameters([
+                        string(defaultValue: '/data', name: 'Directory'),
+                        string(defaultValue: 'Dev', name: 'DEPLOY_ENV')
+                ])
+        ]
+)
 pipeline {
     agent any
         stages {
@@ -12,7 +19,7 @@ pipeline {
                     script {
                         //sample common setting
                         properties([parameters([string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)])])
-                        for(int param in pipelineProperties.params) {
+                        for(int param in ci.params) {
                                  println(param.value);
                               }
                     }
