@@ -21,8 +21,10 @@ pipeline {
                         echo ci.params
                         //sample common setting
                         properties(
-                                [parameters([string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)])],
-                                ci.params
+                                [parameters(
+                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)],
+                                        ci.params
+                                )]
                         )
 
                     }
