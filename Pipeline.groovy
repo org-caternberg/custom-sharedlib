@@ -2,7 +2,7 @@
 
 //TODO:
 //read pipeline.yaml properties
-ci = readYaml "ci.yaml"
+ci = readYaml file: "ci.yaml"
 properties(
         [
                 parameters([
