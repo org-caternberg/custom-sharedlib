@@ -17,7 +17,7 @@ properties(
         [
            parameters(
                 script {
-                    listParameters()
+                    listParameters().toString()
                 }
         )
       ]
