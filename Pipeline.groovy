@@ -10,6 +10,10 @@ properties(
                 ])
         ]
 )
+
+def ci = readYaml file: "ci.yaml"
+echo ci.params
+
 pipeline {
     agent any
         stages {
@@ -22,8 +26,8 @@ pipeline {
                         //sample common setting
                         properties(
                                 [parameters(
-                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true),
-                                         ci.params
+                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)
+
                                         ]
                                 )]
                         )
