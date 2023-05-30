@@ -27,7 +27,7 @@ properties([
 def ci = null;
 
 def listParameters(){
-    lista = return_list()
+
     if ("${JOB_NAME}".contains("word")){
         ch = [
                 choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla'),
