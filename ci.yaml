@@ -5,5 +5,7 @@ steps:
     exec: "mvn version"
   - name: "mvn verify"
     container: "todo"
+    exec: "mvn verify"
   - name: "echo 'hello world'"
     container: "todo"
+    exec: "todo"
