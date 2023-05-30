@@ -1,1 +1,9 @@
 params: "string(defaultValue: '/data', name: 'Directory'),string(defaultValue: 'Dev', name: 'DEPLOY_ENV')"
+steps:
+  - name: "version"
+    container: "todo"
+    exec: "mvn version"
+  - name: "mvn verify"
+    container: "todo"
+  - name: "echo 'hello world'"
+    container: "todo"
