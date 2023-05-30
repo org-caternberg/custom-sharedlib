@@ -16,9 +16,9 @@ def mavenPod = libraryResource 'podagents/podTemplate-prod.yaml'
 properties(
         [
            parameters(
-                script {
-                    listParameters().toString()
-                }
+
+                    listParameters()
+
         )
       ]
 )
