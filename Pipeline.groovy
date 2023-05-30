@@ -41,6 +41,13 @@ pipeline {
                 }
             }
             stage('build'){
+                agent {
+                    kubernetes {
+                        //#deprectatedlabel 'mavenPod'
+                        defaultContainer "build"
+                        yaml mavenPod
+                    }
+                }
                 steps {
                     execSteps ()
                 }
