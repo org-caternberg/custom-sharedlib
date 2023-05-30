@@ -2,8 +2,9 @@
 //import groovy.yaml.YamlSlurper
 def call() {
        ci = readYaml file: "ci.yaml"
-       steps = ci.steps
-       echo steps
+        echo ${ci.steps}
+      // steps = ci.steps
+      //& echo steps
     /*   steps.each {
               echo it.name
               sh it.exec
