@@ -4,10 +4,8 @@ def call(stageName) {
     ci = readYaml file: "ci.yaml"
     //echo "${ci.stage[0].steps}"
     ci.stage.each { stage ->
-        echo "first $stage.name"
         echo "stage.nane: $stage.name, stageName: ${stageName}"
         if ("$stage.name" == "${stageName}") {
-            echo "found $stage"
             stage.steps.each { step ->
                 echo step.name
                 echo step.exec
@@ -17,7 +15,6 @@ def call(stageName) {
             }
             return 0;
         }
-        echo "Not found $stageName"
     }
 }
 
