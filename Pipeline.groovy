@@ -33,7 +33,7 @@ pipeline {
                     }
                 }
             }
-            stage('Init'){
+            stage('print'){
                 steps {
                     echo "${ci}"
                 }
