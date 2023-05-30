@@ -1,7 +1,7 @@
 params:
-  - param: "string(defaultValue: '/data', name: 'Directory')"
-  - param: "string(defaultValue: 'Dev', name: 'DEPLOY_ENV')"
-  - param: "choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')"
+  - "string(defaultValue: '/data', name: 'Directory')"
+  - "string(defaultValue: 'Dev', name: 'DEPLOY_ENV')"
+  - "choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')"
 stage:
   - name: build
     steps:
