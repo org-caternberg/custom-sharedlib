@@ -26,20 +26,12 @@ properties(
 def ci = null;
 
 def listParameters(){
-
-    if ("${JOB_NAME}".contains("word")){
         ch = [
                 choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla'),
                 choice(choices: ["${lista}"], description: 'some letter', name: 'ble')
         ]
 
-    }else{
-        ch = [
-                choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')
-        ]
-    }
     return ch
-
 }
 pipeline {
     agent none
