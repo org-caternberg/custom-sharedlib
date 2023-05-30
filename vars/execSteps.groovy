@@ -3,9 +3,10 @@
 def call() {
        ci = readYaml file: "ci.yaml"
        steps = ci.steps
-       steps.each {
+       echo steps
+    /*   steps.each {
               echo it.name
               sh it.exec
-       }
+       }*/
  }
 
