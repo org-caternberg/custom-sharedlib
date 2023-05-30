@@ -8,4 +8,4 @@ steps:
     exec: 'echo "mvn verify"'
   - name: "Step hello world"
     container: "todo"
-    exec: 'echo "hello world"'
+    exec: 'archiveArtifacts artifacts: "*", followSymlinks: false'
