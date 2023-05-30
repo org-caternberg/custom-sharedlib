@@ -33,9 +33,9 @@ pipeline {
                     }
                 }
             }
-            stage('print'){
+            stage('build'){
                 steps {
-                    echo "${ci}"
+                    execSteps("build")
                 }
             }
         }
