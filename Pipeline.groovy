@@ -13,15 +13,14 @@ def mavenPod = libraryResource 'podagents/podTemplate-prod.yaml'
 )*/
 
 //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
-properties([
+properties(
         [
-                $class: 'RebuildSettings', autoRebuild: true, rebuildDisabled: false],
-        parameters(
+           parameters(
                 script {
                     listParameters()
                 }
         )
-]
+      ]
 )
 
 def ci = null;
