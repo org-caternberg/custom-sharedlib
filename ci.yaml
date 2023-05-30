@@ -1,11 +1,11 @@
 params: "string(defaultValue: '/data', name: 'Directory'),string(defaultValue: 'Dev', name: 'DEPLOY_ENV')"
 steps:
-  - name: "version"
+  - name: "Step show version"
     container: "todo"
     exec: 'sh "mvn -version"'
-  - name: "verify"
+  - name: "Step Verify"
     container: "todo"
-    exec: "mvn verify"
-  - name: "echo 'hello world'"
+    exec: 'echo "mvn verify"'
+  - name: "Step hello world"
     container: "todo"
-    exec: "hello world"
+    exec: 'echo "hello world"'
