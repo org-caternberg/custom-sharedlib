@@ -26,7 +26,7 @@ properties([
 
 def ci = null;
 
-def list_arguments(){
+def listParameters(){
     lista = return_list()
     if ("${JOB_NAME}".contains("word")){
         ch = [
