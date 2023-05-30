@@ -1,7 +1,6 @@
+library 'shared-lib' _
 //https://github.com/devopscube/declarative-pipeline-examples/blob/master/parameters/Jenkinsfile.ActiveChoiceParameters
-
 //TODO:
-
 properties(
         [
                 parameters([
@@ -10,9 +9,7 @@ properties(
                 ])
         ]
 )
-
 def ci=null;
-
 pipeline {
     agent any
         stages {
