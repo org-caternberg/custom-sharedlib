@@ -2,7 +2,7 @@ params: "string(defaultValue: '/data', name: 'Directory'),string(defaultValue: '
 steps:
   - name: "version"
     container: "todo"
-    exec: "mvn -version"
+    exec: 'sh "mvn -version"'
   - name: "verify"
     container: "todo"
     exec: "mvn verify"

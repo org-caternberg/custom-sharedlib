@@ -6,11 +6,8 @@ def call() {
       ci.steps.each { step ->
            echo step.name
            echo step.exec
-           sh "${step.exec}"
+           //sh "${step.exec}"
+          Eval.eval.me(step.exec)
        }
-/*    def list = [1,2,3,4]
-    for(item in list){
-        println item
-    }*/
  }
 
