@@ -1,4 +1,6 @@
 library 'shared-lib' _
+def mavenPod = libraryResource 'podagents/podTemplate-prod.yaml'
+
 //https://github.com/devopscube/declarative-pipeline-examples/blob/master/parameters/Jenkinsfile.ActiveChoiceParameters
 //TODO:
 properties(
@@ -11,10 +13,18 @@ properties(
 )
 def ci=null;
 pipeline {
-    agent any
+    agent none
         stages {
             stage('Init'){
+                agent {
+                    kubernetes {
+                        //#deprectatedlabel 'mavenPod'
+                        defaultContainer "build"
+                        yaml mavenPod
+                    }
+                }
                 steps {
+
                     script {
                         //read pipeline.yaml properties
                         ci = readYaml file: "ci.yaml"

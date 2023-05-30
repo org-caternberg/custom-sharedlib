@@ -13,9 +13,9 @@ spec:
         - cat
       tty: true
     - name: build
-      #image: maven:3.6.3-jdk-11
+      image: maven:3.6.3-jdk-11
       #custom image
-      image: caternberg/ci-toolbox
+      #image: caternberg/ci-toolbox
       command:
         - cat
       tty: true
