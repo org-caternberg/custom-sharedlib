@@ -7,7 +7,7 @@ def call() {
            echo step.name
            echo step.exec
            //sh "${step.exec}"
-          Eval.eval.me(step.exec)
+          Eval.me(step.exec)
        }
  }
 
