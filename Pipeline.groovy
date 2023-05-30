@@ -11,8 +11,7 @@ properties(
         ]
 )
 
-def ci = readYaml file: "ci.yaml"
-echo ci.params
+def ci=null;
 
 pipeline {
     agent any
@@ -24,14 +23,19 @@ pipeline {
                         ci = readYaml file: "ci.yaml"
                         echo ci.params
                         //sample common setting
-                        properties(
+/*                        properties(
                                 [parameters(
                                         [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)
 
                                         ]
                                 )]
-                        )
+                        )*/
                     }
+                }
+            }
+            stage('Init'){
+                steps {
+                    echo "${ci}"
                 }
             }
         }
