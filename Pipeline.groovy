@@ -32,7 +32,7 @@ pipeline {
             }
             stage('build'){
                 steps {
-                    execSteps("build")
+                    execSteps ()
                 }
             }
         }
