@@ -28,7 +28,7 @@ def ci = null;
 def listParameters(){
         ch = [
                 choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla'),
-                choice(choices: ["${lista}"], description: 'some letter', name: 'ble')
+                choice(choices: ['opt6', 'opt5', 'opt4'],description: 'some letter', name: 'ble')
         ]
 
     return ch
