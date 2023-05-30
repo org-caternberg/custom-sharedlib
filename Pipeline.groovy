@@ -48,9 +48,8 @@ pipeline {
                 script {
                     //read pipeline.yaml properties
                     ci = readYaml file: "ci.yaml"
-ci.params.each  { k,v ->
-    println "$k"
-    println "$v"
+ci.params.each  { p ->
+    println "$p"
 }
                     //sample common setting
 /*                        properties(
