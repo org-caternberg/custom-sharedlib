@@ -2,7 +2,6 @@ library 'shared-lib' _
 def mavenPod = libraryResource 'podagents/podTemplate-prod.yaml'
 
 //https://github.com/devopscube/declarative-pipeline-examples/blob/master/parameters/Jenkinsfile.ActiveChoiceParameters
-//TODO:
 /*properties(
         [
                 parameters([
@@ -48,9 +47,9 @@ pipeline {
                 script {
                     //read pipeline.yaml properties
                     ci = readYaml file: "ci.yaml"
-ci.params.each  { p ->
-    println "$p"
-}
+                    ci.params.each  { p ->
+                        println "$p"
+                    }
                     //sample common setting
 /*                        properties(
                                 [parameters(
