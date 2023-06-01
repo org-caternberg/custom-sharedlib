@@ -25,7 +25,7 @@ def call(stageName) {
 }
 
 def getCommonSteps (stageName){
-    ciCoomonConfig = libraryResource ("pipeline-config/ci.yaml")
+    ciCoomonConfig = readYaml text: libraryResource ("pipeline-config/ci.yaml")
     echo "${ciCoomonConfig}"
     ciCoomonConfig.stage.each { it ->
         echo "stage.nane: $it.name, stageName: ${stageName}"
