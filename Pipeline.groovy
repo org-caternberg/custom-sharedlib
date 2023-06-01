@@ -25,17 +25,15 @@ properties(
 def ci = null;
 
 def listParameters(){
-    ci = readYaml file: "ci.yaml"
+    /*ci = readYaml file: "ci.yaml"
     String params=""
     ci.params.each { param ->
         params += param +","
     }
     if (params != null && params.length() > 0 && params.charAt(params.length() - 1) == ',') {
         params = params.substring(0, params.length() - 1);
-    }
+    }*/
     ch = [
-           evaluate (params),
-              //defaults
             choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')
     ]
 
@@ -57,17 +55,31 @@ pipeline {
                 script {
                     //read pipeline.yaml properties
                     ci = readYaml file: "ci.yaml"
+
+                    String params=""
+                    ci.params.each { param ->
+                        params += param +","
+                    }
+                    if (params != null && params.length() > 0 && params.charAt(params.length() - 1) == ',') {
+                        params = params.substring(0, params.length() - 1);
+                    }
+                    paramArray = [
+                            evaluate (params)
+                    ]
+
+
                     ci.params.each  { p ->
                         println "$p"
                     }
                     //sample common setting
-/*                        properties(
+                       properties(
                                 [parameters(
-                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)
+                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true),
+                                         paramArray
 
                                         ]
                                 )]
-                        )*/
+                        )
                 }
             }
         }
