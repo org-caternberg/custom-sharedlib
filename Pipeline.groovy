@@ -75,11 +75,11 @@ pipeline {
                         println "$p"
                     }
                     //sample common setting
-                       properties(
+              /*         properties(
                                 [parameters(
                                         paramArray
                                 )]
-                        )
+                        )*/
                 }
             }
         }
