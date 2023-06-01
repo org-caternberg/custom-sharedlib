@@ -6,7 +6,8 @@ def call(stageName) {
     ci.stage.each { stage ->
         echo "stage.nane: $stage.name, stageName: ${stageName}"
         if ("$stage.name" == "${stageName}") {
-            getCommonSteps.each {
+            commonSteps=getCommonSteps(stageName)
+            commonSteps.each {
                 echo step.name
                 echo step.exec
                 //sh "${step.exec}"
