@@ -77,9 +77,7 @@ pipeline {
                     //sample common setting
                        properties(
                                 [parameters(
-                                        [paramArray
-
-                                        ]
+                                        paramArray
                                 )]
                         )
                 }
