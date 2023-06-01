@@ -25,7 +25,17 @@ properties(
 def ci = null;
 
 def listParameters(){
+    ci = readYaml file: "ci.yaml"
+    String params=""
+    ci.params.each { param ->
+        params += param +","
+    }
+    if (params != null && params.length() > 0 && params.charAt(params.length() - 1) == ',') {
+        params = params.substring(0, params.length() - 1);
+    }
     ch = [
+           evaluate (params),
+              //defaults
             choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')
     ]
 
