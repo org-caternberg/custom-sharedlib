@@ -12,6 +12,7 @@ def mavenPod = libraryResource 'podagents/podTemplate-prod.yaml'
 )*/
 
 //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
+/*
 properties(
         [
            parameters(
@@ -21,6 +22,7 @@ properties(
         )
       ]
 )
+ */
 
 def ci = null;
 
@@ -66,6 +68,7 @@ pipeline {
                     paramArray = [
                             evaluate (params)
                     ]
+                    echo "ARRAY: $paramArray"
 
 
                     ci.params.each  { p ->
@@ -74,8 +77,7 @@ pipeline {
                     //sample common setting
                        properties(
                                 [parameters(
-                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true),
-                                         paramArray
+                                        [paramArray
 
                                         ]
                                 )]
