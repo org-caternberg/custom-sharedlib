@@ -27,10 +27,10 @@ def call(stageName) {
 def getCommonSteps (stageName){
     ciCoomonConfig = libraryResource ("pipeline-config/ci.yaml")
     echo "${ciCoomonConfig}"
-    ciCoomonConfig.stage.each { stage ->
-        echo "stage.nane: $stage.name, stageName: ${stageName}"
-        if ("$stage.name" == "${stageName}") {
-            return stage.steps
+    ciCoomonConfig.stage.each { it ->
+        echo "stage.nane: $it.name, stageName: ${stageName}"
+        if ("$it.name" == "${it}") {
+            return it.steps
         }
     }
     return null;
