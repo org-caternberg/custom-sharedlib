@@ -12,15 +12,15 @@ def mavenPod = libraryResource 'podagents/podTemplate-prod.yaml'
 )*/
 
 //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
+/*
 properties(
         [
            parameters(
-
                     listParameters()
-
         )
       ]
 )
+*/
 
 def ci = null;
 
@@ -49,14 +49,22 @@ pipeline {
                     ci.params.each  { p ->
                         println "$p"
                     }
+                    ci.options.each  { option ->
+                        println "$option"
+                    }
                     //sample common setting
-/*                        properties(
+                        properties(
                                 [parameters(
-                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)
-
+                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)//, add more
+                                            //add more
+                                        ]
+                                )],
+                                [options(
+                                        [timeout(time: 1, unit: 'HOURS')
+                                         //add more
                                         ]
                                 )]
-                        )*/
+                        )
                 }
             }
         }
