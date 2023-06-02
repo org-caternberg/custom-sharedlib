@@ -12,7 +12,6 @@ def mavenPod = libraryResource 'podagents/podTemplate-prod.yaml'
 )*/
 
 //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
-/*
 properties(
         [
            parameters(
@@ -22,19 +21,10 @@ properties(
         )
       ]
 )
- */
 
 def ci = null;
 
 def listParameters(){
-    /*ci = readYaml file: "ci.yaml"
-    String params=""
-    ci.params.each { param ->
-        params += param +","
-    }
-    if (params != null && params.length() > 0 && params.charAt(params.length() - 1) == ',') {
-        params = params.substring(0, params.length() - 1);
-    }*/
     ch = [
             choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')
     ]
@@ -47,7 +37,6 @@ pipeline {
         stage('Init') {
             agent {
                 kubernetes {
-                    //#deprectatedlabel 'mavenPod'
                     defaultContainer "build"
                     yaml mavenPod
                 }
@@ -57,28 +46,15 @@ pipeline {
                 script {
                     //read pipeline.yaml properties
                     ci = readYaml file: "ci.yaml"
-
-                    String params=""
-                    ci.params.each { param ->
-                        params += param +","
-                    }
-                    echo params
-                   // if (params != null && params.length() > 0 && params.charAt(params.length() - 1) == ',') {
-                        params = params.substring(0, params.length() - 1);
-                   // }
-                    paramArray = [
-                            evaluate (params)
-                    ]
-                    echo "ARRAY: $paramArray"
-
-
                     ci.params.each  { p ->
                         println "$p"
                     }
                     //sample common setting
-              /*         properties(
+/*                        properties(
                                 [parameters(
-                                        paramArray
+                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)
+
+                                        ]
                                 )]
                         )*/
                 }
