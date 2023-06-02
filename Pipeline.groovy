@@ -61,8 +61,7 @@ pipeline {
                                 )],
                                 [options(
                                         timeout(time: 1, unit: 'HOURS'),
-                                        ansiColor('vga'),
-                                        durabilityHint 'MAX_SURVIVABILITY'
+                                        ansiColor('vga')
 
                                 )]
                         )
