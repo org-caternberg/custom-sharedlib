@@ -62,9 +62,10 @@ pipeline {
                     ci.params.each { param ->
                         params += param +","
                     }
-                    if (params != null && params.length() > 0 && params.charAt(params.length() - 1) == ',') {
+                    echo params
+                   // if (params != null && params.length() > 0 && params.charAt(params.length() - 1) == ',') {
                         params = params.substring(0, params.length() - 1);
-                    }
+                   // }
                     paramArray = [
                             evaluate (params)
                     ]
