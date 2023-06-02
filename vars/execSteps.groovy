@@ -10,13 +10,11 @@ def call(stageName) {
             commonSteps.each {
                 echo step.name
                 echo step.exec
-                //sh "${step.exec}"
                 evaluate(step.exec)
             }
             stage.steps.each { step ->
                 echo step.name
                 echo step.exec
-                //sh "${step.exec}"
                 evaluate(step.exec)
             }
             return 0;
