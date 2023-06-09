@@ -1,9 +1,9 @@
 //https://blog.jdriven.com/2020/03/groovy-goodness-parse-yaml-with-yamlslurper/
 //import groovy.yaml.YamlSlurper
-def call(stageName) {
-    ci = readYaml file: "ci.yaml"
+def call(config,stageName) {
+   // ci = readYaml file: "ci.yaml"
     //echo "${ci.stage[0].steps}"
-    ci.stage.each { stage ->
+    config.stage.each { stage ->
         echo "stage.nane: $stage.name, stageName: ${stageName}"
         if ("$stage.name" == "${stageName}") {
             commonSteps=getCommonSteps(stageName)
