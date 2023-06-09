@@ -94,7 +94,7 @@ pipeline {
                 skipDefaultCheckout(false)
             }
             steps {
-                execSteps config "build"
+                execSteps (config,"build")
             }
         }
     }
