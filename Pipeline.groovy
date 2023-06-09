@@ -31,6 +31,8 @@ def listParameters(){
 
     return ch
 }
+
+
 pipeline {
     agent none
     stages {
@@ -39,6 +41,8 @@ pipeline {
                 kubernetes {
                     defaultContainer "build"
                     yaml mavenPod
+                    //https://docs.cloudbees.com/docs/cloudbees-ci-kb/latest/cloudbees-ci-on-modern-cloud-platforms/kubernetes-using-external-pod-description-yaml
+                    yamlFile "${params.agentPod}.yaml"
                 }
             }
             steps {
@@ -55,15 +59,18 @@ pipeline {
                     //sample common setting
                         properties(
                                 [parameters(
-                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true)//, add more
-                                            //add more
+                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true),//, add more
+                                         ci.params.each  { p ->
+                                             evaluate (p)
+                                         }
                                         ]
                                 )],
-                                [options(
-                                        timeout(time: 1, unit: 'HOURS'),
-                                        ansiColor('vga')
-
-                                )]
+                                buildDiscarder(
+                                        logRotator(
+                                                daysToKeepStr: '7',
+                                                numToKeepStr: '25'
+                                        )
+                                )
                         )
                 }
             }
@@ -75,6 +82,9 @@ pipeline {
                     defaultContainer "build"
                     yaml mavenPod
                 }
+            }
+            options {
+                skipDefaultCheckout(true)
             }
             steps {
                 execSteps "build"
