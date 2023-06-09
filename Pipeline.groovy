@@ -35,7 +35,10 @@ def listParameters(){
 def myTmpOptions = "options {timeout(time: 2, unit: 'MINUTES')}"
 pipeline {
     agent none
-    evaluate (myTmpOptions)
+    script {
+        evaluate (myTmpOptions)
+    }
+
     stages {
         stage('Init') {
             agent {
