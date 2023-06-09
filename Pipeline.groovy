@@ -42,7 +42,7 @@ pipeline {
                     defaultContainer "build"
                     yaml mavenPod
                     //https://docs.cloudbees.com/docs/cloudbees-ci-kb/latest/cloudbees-ci-on-modern-cloud-platforms/kubernetes-using-external-pod-description-yaml
-                    yamlFile "${params.agentPod}.yaml"
+                    //yamlFile "${params.agentPod}.yaml"
                 }
             }
             steps {
