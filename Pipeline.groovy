@@ -64,13 +64,16 @@ pipeline {
                                              evaluate (p)
                                          }
                                         ]
-                                )],
+                                )])
+                        properties(
+                            [
                                 buildDiscarder(
                                         logRotator(
                                                 daysToKeepStr: '7',
                                                 numToKeepStr: '25'
                                         )
                                 )
+                            ]
                         )
                 }
             }
