@@ -24,7 +24,7 @@ properties(
 
 def config = null;
 
-def listParameters(){
+def listParameters() {
     ch = [
             choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')
     ]
@@ -35,8 +35,6 @@ def listParameters(){
 //def myTmpOptions = options {timeout(time: 2, unit: 'MINUTES')}
 pipeline {
     agent none
-
-
 
 
     stages {
@@ -54,31 +52,36 @@ pipeline {
                 script {
                     //read pipeline.yaml properties
                     config = readYaml file: "ci.yaml"
-                    config.params.each  { p ->
+                    config.params.each { p ->
                         println "$p"
                     }
-                    config.options.each  { option ->
+                    config.options.each { option ->
                         println "$option"
                     }
-                    //sample common setting
-                  /*   properties(
-                                [parameters(
-                                        [string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true),//, add more
-                                         config.params.each  { p ->
-                                             evaluate (p)
-                                         }
-                                        ]
-                                )])*/
-                        properties(
+                    def tmpParams= [ : ]
+                    tmpParams.put()
+                    string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true),//, add more
+                    config.params.each { p ->
+                        evaluate(p)
+                    }
+                    //setting up parameters from config
+                    properties(
+                            [parameters(
+                                    script{
+                                        listParameters()
+                                    }
+                            )])
+                    //apply options
+                    properties(
                             [
-                                buildDiscarder(
-                                        logRotator(
-                                                daysToKeepStr: '7',
-                                                numToKeepStr: '25'
-                                        )
-                                )
+                                    buildDiscarder(
+                                            logRotator(
+                                                    daysToKeepStr: '7',
+                                                    numToKeepStr: '25'
+                                            )
+                                    )
                             ]
-                        )
+                    )
                 }
             }
         }
@@ -94,7 +97,7 @@ pipeline {
                 skipDefaultCheckout(false)
             }
             steps {
-                execSteps (config,"build")
+                execSteps(config, "build")
             }
         }
     }
