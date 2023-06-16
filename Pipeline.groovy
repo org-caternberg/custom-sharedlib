@@ -58,12 +58,7 @@ pipeline {
                     config.options.each { option ->
                         println "$option"
                     }
-                    def tmpParams= [ : ]
-                    tmpParams.put()
-                    string(defaultValue: 'value1', description: 'desc1', name: 'param1', trim: true),//, add more
-                    config.params.each { p ->
-                        evaluate(p)
-                    }
+
                     //setting up parameters from config
                     properties(
                             [parameters(
