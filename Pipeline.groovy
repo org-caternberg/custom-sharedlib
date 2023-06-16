@@ -64,7 +64,7 @@ pipeline {
                     properties(
                             [parameters(
                                     script{
-                                        listParameters()
+                                        config.params[0]
                                     }
                             )])
                     //apply options
