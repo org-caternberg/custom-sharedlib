@@ -25,6 +25,7 @@ properties(
 def config = null;
 
 def listParameters() {
+    println ("HELLO")
     ch = [
             choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')
     ]
