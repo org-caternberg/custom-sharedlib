@@ -1,0 +1,15 @@
+params:
+  - "string(defaultValue: '/tmp', name: 'Directory')"
+  - "string(defaultValue: 'Dev', name: 'DEPLOY_ENV')"
+options:
+  - "timeout(time: 1, unit: 'HOURS'),"
+  - "buildDiscarder(logRotator(daysToKeepStr: '7',numToKeepStr: '25'))"
+stage:
+  - name: build
+    steps:
+    - name: "Step show version"
+      exec: 'sh "mvn -version"'
+    - name: "Step Verify"
+      exec: 'echo "mvn verify"'
+    - name: "Step hello world"
+      exec: 'archiveArtifacts artifacts: "*", followSymlinks: false'

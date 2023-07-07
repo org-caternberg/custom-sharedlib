@@ -1,6 +1,6 @@
 FROM alpine
 WORKDIR /usr/local/bin
-LABEL maintainerAndreas Caternberg <andreas.caternberg@gmail.com>
+LABEL maintainer Andreas Caternberg <andreas.caternberg@gmail.com>
 
 ENV DOCKER_VERSION=18.06.1-ce KUBECTL_VERSION=v1.20 HELM_VERSION=v3.0 JQ_VERSION=1.6
 
