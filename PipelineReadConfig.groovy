@@ -16,7 +16,7 @@ def listParameters() {
             choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')
     ]
 
-    return ch
+    return ch[0]
 }
 
 pipeline {
@@ -28,8 +28,9 @@ pipeline {
             //yamlFile "${params.agentPod}.yaml"
         }
     }
-   listParameters()
-    
+    parameters {
+       listParameters()
+    }
    environment {
        //read from yaml and assign to env var
       APP_NAME=getYamlValue("appName")
