@@ -31,7 +31,7 @@ def generateDynamicEnvVars() {
     envVars['DYNAMIC_VARIABLE'] = 'dynamic_value'
     envVars['ANOTHER_VARIABLE'] = 'another_dynamic_value'
     // ADD CUSTOM  dynamic environment variables
-    loadValuesYaml().enviroment.eacheach { key, value ->
+    loadValuesYaml().enviroment.each { key, value ->
         envVars["$key"] = "$value"
     }
     // Add more dynamic variables as needed
