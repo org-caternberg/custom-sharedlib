@@ -14,7 +14,7 @@ def getYamlValue(x) {
 // Generate options dynamically
 def generateDynamicOptions() {
     println "GENERATE OPTIONS"
-    def options= ()
+    def options= []
     //ADD COMMON options
     options.add(disableResume())
     //ADD CUSTOM options from config yaml
