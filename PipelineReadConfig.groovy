@@ -73,10 +73,10 @@ pipeline {
                 script {
                     valuesYaml = loadValuesYaml()
                     //println valuesYaml.getClass()
-                    prinln "DEBUG"
-                    loadValuesYaml().environment.each { key, value ->
-                        envVars.add("$key = $value")
-                        println "ADD ENV: $key = $value"
+                    println "DEBUG"
+                    loadValuesYaml().environment.each { env ->
+
+                        println "ADD ENV: $env"
                     }
                     properties([
                             // Generate dynamic parameters
