@@ -25,8 +25,7 @@ def generateDynamicParams() {
 }
 
 def execCustomSteps(stageName) {
-    valuesYaml = loadValuesYaml()
-    valuesYaml.stage.each { stage ->
+        loadValuesYaml().stage.each { stage ->
         echo "stage.nane: $stage.name, stageName: ${stageName}"
         if ("$stage.name" == "${stageName}") {
             stage.steps.each { step ->
@@ -58,15 +57,14 @@ pipeline {
             steps {
                 script {
                     valuesYaml = loadValuesYaml()
-                    println valuesYaml.getClass()
-                    valuesYaml.params.each { p -> println "${p}"
-                    }
+                    //println valuesYaml.getClass()
 
                     properties([
                             //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
                             parameters(generateDynamicParams())
                     ])
 
+                    /*Examples on how to access values from yamlConfig*/
                     //option1
                     echo valuesYaml.appName
                     //option2
@@ -79,8 +77,9 @@ pipeline {
 
         stage('ReadAndExecSteps') {
             steps {
-                sh "here is common template step"
-                execCustomSteps(valuesYaml, "build")
+                sh "echo 'here is common template step1'"
+                sh "echo 'here is common template step2'"
+                execCustomSteps("build")
             }
         }
     }
