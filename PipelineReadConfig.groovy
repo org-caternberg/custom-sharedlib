@@ -80,6 +80,7 @@ pipeline {
 
                     // Generate dynamic environment variables
                    // Define the environment block dynamically
+                    println "GENERATE ENVIRONMENT"
                     environment {
                         generateDynamicEnvVars().each { key, value ->
                             println "$key = $value"
