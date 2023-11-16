@@ -3,7 +3,7 @@ params:
   - "string(defaultValue: '/tmp', name: 'Directory')"
   - "string(defaultValue: 'Dev', name: 'DEPLOY_ENV')"
 options:
-  - "timeout(time: 1, unit: 'HOURS'),"
+  - "timeout(time: 1, unit: 'HOURS')"
   - "buildDiscarder(logRotator(daysToKeepStr: '7',numToKeepStr: '25'))"
 environment:
   - "EXAMPLE_KEY1 = 'THIS IS AN EXAMPLE VALUE1 FROM CI YAML'"
