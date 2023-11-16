@@ -95,6 +95,7 @@ pipeline {
                     echo getYamlValue("appName")
                     //option3 use env vars
                     sh "echo $APP_NAME"
+                    echo "ENV VAR FROM yaml file: $EXAMPLE_KEY1"
                 }
             }
         }
