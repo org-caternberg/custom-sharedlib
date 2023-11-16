@@ -78,9 +78,7 @@ pipeline {
 
                     //Generate options
                     if (valuesYaml.options.timestamps) {
-                        options {
-                            timestamps()
-                        }
+                             timestamps()
                     }
 
             /*        if (valuesYaml.options.timeout) {
