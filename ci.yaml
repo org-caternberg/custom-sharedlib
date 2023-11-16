@@ -8,9 +8,9 @@ options:
 stage:
   - name: build
     steps:
-    - name: "Step show version"
+    - name: "CUSTOM STEP show version"
       exec: 'sh "mvn -version"'
-    - name: "Step Verify"
+    - name: "CUSTOM STEP Verify"
       exec: 'echo "mvn verify"'
-#    - name: "Step hello world"
+#    - name: "CUSTOM STEP archiveArtifacts"
 #      exec: 'archiveArtifacts artifacts: "*", followSymlinks: false'
