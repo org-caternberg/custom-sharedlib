@@ -26,16 +26,16 @@ def generateDynamicParams() {
     return params
 }
 
-node {
+
     //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
-    properties(
+/*    properties(
            [
                parameters(
                         generateDynamicParams()
               )
           ]
     )
-}
+*/
 
 
 pipeline {
@@ -61,6 +61,14 @@ pipeline {
                     valuesYaml.params.each { p ->
                         println "${p}"
                     }
+                        //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
+                    properties(
+                           [
+                               parameters(
+                                        generateDynamicParams()
+                              )
+                          ]
+                    )
                 }
             }
         }
