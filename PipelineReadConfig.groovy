@@ -42,8 +42,8 @@ pipeline {
                 sh "echo $APP_NAME"
             }
         }
-        stage("ReadAndExecSteps"){
-             execSteps(config, "build")
+        stage('ReadAndExecSteps'){
+             execSteps(valuesYaml, "build")
         }    
     }
 }
