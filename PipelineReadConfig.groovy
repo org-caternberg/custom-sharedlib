@@ -64,9 +64,13 @@ pipeline {
             //yamlFile "${params.agentPod}.yaml"
         }
     }
-
     environment {
         APP_NAME = getYamlValue("appName")
+        //generateDynamicEnvVars()
+        loadValuesYaml().environment.each { env ->
+            println "ADD ENV: ${env}"
+            evaluate(env)
+        }
     }
     stages {
         stage('Init') {
@@ -79,13 +83,6 @@ pipeline {
                             //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
                             parameters(generateDynamicParams())
                             // Generate dynamic environment variables
-                            environment {
-                                //generateDynamicEnvVars()
-                                loadValuesYaml().environment.each { env ->
-                                    println "ADD ENV: ${env}"
-                                    evaluate(env)
-                                }
-                            }
                     ])
 
 
