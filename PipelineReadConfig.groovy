@@ -10,6 +10,15 @@ def getYamlValue(x){
   return loadValuesYaml()[x];
 }
 
+def listParameters() {
+    println ("HELLO")
+    ch = [
+            choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')
+    ]
+
+    return ch
+}
+
 pipeline {
     agent {
         kubernetes {
@@ -19,6 +28,8 @@ pipeline {
             //yamlFile "${params.agentPod}.yaml"
         }
     }
+   listParameters()
+    
    environment {
        //read from yaml and assign to env var
       APP_NAME=getYamlValue("appName")
