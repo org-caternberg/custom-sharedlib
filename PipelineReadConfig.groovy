@@ -76,7 +76,6 @@ pipeline {
             //yamlFile "${params.agentPod}.yaml"
         }
     }
-    options(generateDynamicOptions())
     stages {
         stage('Init') {
             steps {
@@ -84,7 +83,7 @@ pipeline {
                     valuesYaml = loadValuesYaml()
                     //println valuesYaml.getClass()
                     properties([
-
+                            generateDynamicOptions(),
                             // Generate dynamic parameters
                             //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
                             parameters(generateDynamicParams())
