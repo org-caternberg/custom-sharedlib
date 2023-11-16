@@ -85,7 +85,7 @@ pipeline {
 
                     if (valuesYaml.options.timeout) {
                         options {
-                            timeout(time: yaml.options.timeout.time, unit: yaml.options.timeout.unit)
+                            timeout(time: valuesYaml.options.timeout.time, unit: valuesYaml.options.timeout.unit)
                         }
                     }
 
