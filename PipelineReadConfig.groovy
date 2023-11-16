@@ -77,13 +77,13 @@ pipeline {
                     ])
 
                     //Generate options
-                    if (yaml.options.timestamps) {
+                    if (valuesYaml.options.timestamps) {
                         options {
                             timestamps()
                         }
                     }
 
-                    if (yaml.options.timeout) {
+                    if (valuesYaml.options.timeout) {
                         options {
                             timeout(time: yaml.options.timeout.time, unit: yaml.options.timeout.unit)
                         }
