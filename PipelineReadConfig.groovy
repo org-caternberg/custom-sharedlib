@@ -15,10 +15,11 @@ def generateDynamicParams() {
     // Generate parameters dynamically
     // For example, let's add a boolean parameter
     params.add(booleanParam(name: 'ENABLE_TESTS', defaultValue: true, description: 'Enable tests?'))
-    valuesYaml = loadValuesYaml()
+   /* valuesYaml = loadValuesYaml()
     valuesYaml.params.each { p ->
         params.add(p)
-    }   
+    }
+    */
     // Add more parameters as needed
     return params
 }
@@ -26,10 +27,10 @@ def generateDynamicParams() {
 
 //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
 properties(
-        [
+       [
            parameters(
                     generateDynamicParams()
-        )
+          )
       ]
 )
 
@@ -54,6 +55,9 @@ pipeline {
                 script{
                     valuesYaml = loadValuesYaml()
                     println valuesYaml.getClass()
+                    valuesYaml.params.each { p ->
+                        println "${p}"
+                    }
                 }
             }
         }
