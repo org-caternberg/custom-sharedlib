@@ -30,8 +30,10 @@ pipeline {
         }
         stage('AppName') {
             steps {
+                //option1
                 echo valuesYaml.appName
-                echo getValuesData["appName"]
+                //option2
+                echo getValue("appName")
             }
         }
     }
