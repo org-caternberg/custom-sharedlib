@@ -2,12 +2,13 @@ library 'shared-lib' _
 def mavenPod = libraryResource 'podagents/podTemplate-prod.yaml'
 
 //see https://stackoverflow.com/questions/57261787/use-object-returned-by-readyaml-from-file-in-declarative-jenkinsfile
-def loadValuesYaml(){
-    def valuesYaml = readYaml (file: './ci.yaml')
-    return valuesYaml;
+def loadValuesYaml() {
+    def valuesYaml = readYaml(file: './ci.yaml')
+    return valuesYaml
 }
-def getYamlValue(x){  
-  return loadValuesYaml()[x];
+
+def getYamlValue(x) {
+    return loadValuesYaml()[x]
 }
 
 def generateDynamicParams() {
@@ -16,25 +17,27 @@ def generateDynamicParams() {
     // For example, let's add a boolean parameter
     params.add(booleanParam(name: 'ENABLE_TESTS', defaultValue: true, description: 'Enable tests?'))
     valuesYaml = loadValuesYaml()
-    valuesYaml.params.each { p ->        
+    valuesYaml.params.each { p ->
         params.add(evaluate(p))
     }
-    
     // Add more parameters as needed
     return params
 }
 
-
-    //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
-/*    properties(
-           [
-               parameters(
-                        generateDynamicParams()
-              )
-          ]
-    )
-*/
-
+def execCustomSteps(stageName) {
+    valuesYaml = loadValuesYaml()
+    valuesYaml.stage.each { stage ->
+        echo "stage.nane: $stage.name, stageName: ${stageName}"
+        if ("$stage.name" == "${stageName}") {
+            stage.steps.each { step ->
+                echo step.name
+                echo step.exec
+                evaluate(step.exec)
+            }
+            return 0;
+        }
+    }
+}
 
 pipeline {
     agent {
@@ -46,44 +49,39 @@ pipeline {
         }
     }
 
-   environment {
-       //read from yaml and assign to env var
-      APP_NAME=getYamlValue("appName")
-   }
+    environment {
+        //read from yaml and assign to env var
+        APP_NAME = getYamlValue("appName")
+    }
     stages {
         stage('Init') {
             steps {
-                script{
+                script {
                     valuesYaml = loadValuesYaml()
                     println valuesYaml.getClass()
-                    valuesYaml.params.each { p ->
-                        println "${p}"
+                    valuesYaml.params.each { p -> println "${p}"
                     }
-                        //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
-                    properties(
-                           [
-                               parameters(
-                                        generateDynamicParams()
-                              )
-                          ]
-                    )
+
+                    properties([
+                            //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
+                            parameters(generateDynamicParams())
+                    ])
+
+                    //option1
+                    echo valuesYaml.appName
+                    //option2
+                    echo getYamlValue("appName")
+                    //option3 use env vars
+                    sh "echo $APP_NAME"
                 }
             }
         }
-        stage('AppName') {
+
+        stage('ReadAndExecSteps') {
             steps {
-                //option1
-                echo valuesYaml.appName
-                //option2
-                echo getYamlValue("appName")
-                //option3 use env vars
-                sh "echo $APP_NAME"
+                sh "here is common template step"
+                execCustomSteps(valuesYaml, "build")
             }
         }
-        stage('ReadAndExecSteps'){
-            steps {
-                execSteps(valuesYaml, "build")
-            }      
-        }    
     }
 }
