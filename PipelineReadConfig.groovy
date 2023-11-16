@@ -34,8 +34,7 @@ def generateDynamicEnvVars() {
     println loadValuesYaml().environment
     loadValuesYaml().environment.each { env ->
         envVars.add(evaluate(env))
-        println "ADD ENV: $key = $value"
-        evaluate(env)
+        println "ADD ENV: $env"
     }
     // Add more dynamic variables as needed
     return envVars
@@ -80,16 +79,8 @@ pipeline {
 
                     environment {
                         env.APP_NAME = getYamlValue("appName")
-                        //generateDynamicEnvVars()
-                        loadValuesYaml().environment.each { env ->
-                            println "ADD ENV: ${env}"
-                            evaluate(env)
-                        }
+                        evaluate(generateDynamicEnvVars())
                     }
-
-
-
-
                     /*Examples on how to access values from yamlConfig*/
                     //option1
                     echo valuesYaml.appName
