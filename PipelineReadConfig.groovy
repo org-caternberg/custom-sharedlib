@@ -37,7 +37,7 @@ def generateDynamicEnvVars() {
         println "ADD ENV: $env"
     }
     // Add more dynamic variables as needed
-    return envVars
+    return envVars.toString()
 }
 
 def execCustomSteps(stageName) {
@@ -83,11 +83,11 @@ pipeline {
                         }
                     }
 
-                    if (valuesYaml.options.timeout) {
+            /*        if (valuesYaml.options.timeout) {
                         options {
                             timeout(time: valuesYaml.options.timeout.time, unit: valuesYaml.options.timeout.unit)
                         }
-                    }
+                    }*/
 
                     environment {
                         env.APP_NAME = getYamlValue("appName")
