@@ -86,12 +86,11 @@ pipeline {
                     ])
 
                     // Generate dynamic environment variables
-                   // Define the environment block dynamically
                     environment {
                         //generateDynamicEnvVars()
                         loadValuesYaml().environment.each { env ->
                             println "ADD ENV: ${env}"
-                            evaluate("${env}")
+                            evaluate(env)
                         }
                     }
 
