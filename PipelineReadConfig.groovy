@@ -85,9 +85,7 @@ pipeline {
                             "${key}" "${value}"
                         }
                     }
-                    env.keySet().each { key ->
-                        println "${key}: ${env.get(key)}"
-                    }
+
 
 
                     /*Examples on how to access values from yamlConfig*/
