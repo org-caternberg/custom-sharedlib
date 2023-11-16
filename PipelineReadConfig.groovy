@@ -16,7 +16,7 @@ def listParameters() {
             choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')
     ]
 
-    return ch[0]
+    return choice choices: ['1', '2', '3'], name: 'mychoice'
 }
 
 pipeline {
@@ -29,7 +29,7 @@ pipeline {
         }
     }
     parameters {
-       listParameters()
+       listParameters
     }
    environment {
        //read from yaml and assign to env var
