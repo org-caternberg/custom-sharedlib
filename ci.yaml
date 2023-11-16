@@ -1,3 +1,4 @@
+appName: "testapp"
 params:
   - "string(defaultValue: '/tmp', name: 'Directory')"
   - "string(defaultValue: 'Dev', name: 'DEPLOY_ENV')"
