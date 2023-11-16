@@ -6,6 +6,9 @@ def loadValuesYaml(){
     def valuesYaml = readYaml (file: './ci.yaml')
     return valuesYaml;
 }
+def getValuesData(x){  
+  return loadValuesYaml()[x];
+}
 
 pipeline {
    agent {
@@ -28,6 +31,7 @@ pipeline {
         stage('AppName') {
             steps {
                 echo valuesYaml.appName
+                echo getValuesData["appName"]
             }
         }
     }
