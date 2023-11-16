@@ -28,14 +28,18 @@ pipeline {
             //yamlFile "${params.agentPod}.yaml"
         }
     }
-     parameters {
-      script {
+    parameters {
+        // Define parameters here or generate them dynamically using Groovy
+        string(name: 'BRANCH', defaultValue: 'master', description: 'Branch to build')
+        choice(name: 'ENVIRONMENT', choices: ['dev', 'stage', 'prod'], description: 'Select environment')
+        // Generate parameters dynamically using Groovy
+        script {
             def dynamicParams = generateDynamicParams()
             dynamicParams.each { param ->
                 parameters += param
             }
         }
-     }
+    }
    environment {
        //read from yaml and assign to env var
       APP_NAME=getYamlValue("appName")
