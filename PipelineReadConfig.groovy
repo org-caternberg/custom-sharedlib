@@ -11,19 +11,6 @@ def getYamlValue(x) {
     return loadValuesYaml()[x]
 }
 
-// Generate options dynamically
-def generateDynamicOptions() {
-    println "GENERATE OPTIONS"
-    def options= []
-    //ADD COMMON options
-    options.add(disableResume())
-    //ADD CUSTOM options from config yaml
-    loadValuesYaml().options.each { o ->
-        evaluate(o)
-    }
-    //return options
-}
-
 // Generate parameters dynamically
 def generateDynamicParams() {
     println "GENERATE PARAMS"
@@ -83,14 +70,24 @@ pipeline {
                     valuesYaml = loadValuesYaml()
                     //println valuesYaml.getClass()
                     properties([
-                            loadValuesYaml().options.each { o ->
-                                evaluate(o)
-                            },
                             // Generate dynamic parameters
                             //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
                             parameters(generateDynamicParams())
                             // Generate dynamic environment variables
                     ])
+
+                    //Generate options
+                    if (yaml.options.timestamps) {
+                        options {
+                            timestamps()
+                        }
+                    }
+
+                    if (yaml.options.timeout) {
+                        options {
+                            timeout(time: yaml.options.timeout.time, unit: yaml.options.timeout.unit)
+                        }
+                    }
 
                     environment {
                         env.APP_NAME = getYamlValue("appName")

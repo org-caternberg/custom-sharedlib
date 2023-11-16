@@ -2,6 +2,8 @@ appName: "testapp"
 params:
   - "string(defaultValue: '/tmp', name: 'Directory')"
   - "string(defaultValue: 'Dev', name: 'DEPLOY_ENV')"
+  - "skipStagesAfterUnstable: true"
+  - "timestamps: true"
 options:
   - "skipDefaultCheckout()"
   - "buildDiscarder(logRotator(daysToKeepStr: '7',numToKeepStr: '25'))"
