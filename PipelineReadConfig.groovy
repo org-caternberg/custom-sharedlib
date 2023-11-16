@@ -78,10 +78,13 @@ pipeline {
 
                     //Generate options
                     if (valuesYaml.options.timestamps) {
-                            timestamps
+                            timestamps{}
+                    }
+                    if (valuesYaml.options.buildDiscarder) {
+                        buildDiscarder logRotator(artifactDaysToKeepStr: '2', artifactNumToKeepStr: '2', daysToKeepStr: '1', numToKeepStr: '1')
                     }
 
-                   if (valuesYaml.options.timeout) {
+                    if (valuesYaml.options.timeout) {
                        timeout(time: valuesYaml.options.timeout.time, unit: valuesYaml.options.timeout.unit)
                    }
 
