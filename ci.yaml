@@ -2,11 +2,11 @@ appName: "testapp"
 params:
   - "string(defaultValue: '/tmp', name: 'Directory')"
   - "string(defaultValue: 'Dev', name: 'DEPLOY_ENV')"
-  - "skipStagesAfterUnstable: true"
-  - "timestamps: true"
 options:
   - "skipDefaultCheckout()"
   - "buildDiscarder(logRotator(daysToKeepStr: '7',numToKeepStr: '25'))"
+  - "skipStagesAfterUnstable: true"
+  - "timestamps: true"
 environment:
   - "EXAMPLE_KEY1 = 'THIS IS AN EXAMPLE VALUE1 FROM CI YAML'"
   - "EXAMPLE_KEY2 = 'THIS IS AN EXAMPLE VALUE2 FROM CI YAML'"
