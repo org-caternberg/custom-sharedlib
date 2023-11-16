@@ -17,7 +17,7 @@ def generateDynamicParams() {
     params.add(booleanParam(name: 'ENABLE_TESTS', defaultValue: true, description: 'Enable tests?'))
     valuesYaml = loadValuesYaml()
     valuesYaml.params.each { p ->
-        para,s.add(p)
+        params.add(p)
     }   
     // Add more parameters as needed
     return params
