@@ -10,16 +10,13 @@ def getYamlValue(x){
   return loadValuesYaml()[x];
 }
 
-def listParameters() {
-   // println ("HELLO")
- /*   ch = [
-            choice(choices: ['opt1', 'opt2', 'opt3'], description: 'desc', name: 'bla')
-    ]
-    */
-    parameters {
-       choice choices: ['1', '2', '3'], name: 'mychoice'
-    }
-   
+def generateDynamicParams() {
+    def params = []
+    // Generate parameters dynamically
+    // For example, let's add a boolean parameter
+    params.add(booleanParam(name: 'ENABLE_TESTS', defaultValue: true, description: 'Enable tests?'))
+    // Add more parameters as needed
+    return params
 }
 
 pipeline {
@@ -31,7 +28,14 @@ pipeline {
             //yamlFile "${params.agentPod}.yaml"
         }
     }
-  listParameters
+     parameters {
+      script {
+            def dynamicParams = generateDynamicParams()
+            dynamicParams.each { param ->
+                parameters += param
+            }
+        }
+     }
    environment {
        //read from yaml and assign to env var
       APP_NAME=getYamlValue("appName")
