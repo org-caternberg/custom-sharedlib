@@ -11,7 +11,7 @@ options:
   skipStagesAfterUnstable: true
   timestamps: true
   timeout:
-    unit: "'HOURS'"
+    unit: "HOURS"
     time: 1
 environment:
   - "EXAMPLE_KEY1 = 'THIS IS AN EXAMPLE VALUE1 FROM CI YAML'"
