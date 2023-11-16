@@ -26,15 +26,16 @@ def generateDynamicParams() {
     return params
 }
 
-
-//see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
-properties(
-       [
-           parameters(
-                    generateDynamicParams()
-          )
-      ]
-)
+node {
+    //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
+    properties(
+           [
+               parameters(
+                        generateDynamicParams()
+              )
+          ]
+    )
+}
 
 
 pipeline {
