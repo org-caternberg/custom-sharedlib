@@ -5,6 +5,9 @@ params:
 options:
   - "timeout(time: 1, unit: 'HOURS'),"
   - "buildDiscarder(logRotator(daysToKeepStr: '7',numToKeepStr: '25'))"
+environment:
+  - KEY1:VALUE1
+  - KEY2:VALUE2
 stage:
   - name: build
     steps:
