@@ -6,7 +6,7 @@ def loadValuesYaml(){
     def valuesYaml = readYaml (file: './ci.yaml')
     return valuesYaml;
 }
-def getValuesData(x){  
+def getYamlValue(x){  
   return loadValuesYaml()[x];
 }
 
@@ -33,7 +33,7 @@ pipeline {
                 //option1
                 echo valuesYaml.appName
                 //option2
-                echo getValue("appName")
+                echo getYamlValue("appName")
             }
         }
     }
