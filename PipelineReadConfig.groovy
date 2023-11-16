@@ -12,6 +12,7 @@ def getYamlValue(x) {
 }
 
 // Generate parameters dynamically
+//see https://docs.cloudbees.com/docs/cloudbees-ci/latest/automating-with-jenkinsfile/customizing-parameters
 def generateDynamicParams() {
     println "GENERATE PARAMS"
     def params = []
@@ -85,7 +86,7 @@ pipeline {
                     }
 
                     if (valuesYaml.options.timeout) {
-                       timeout(time: valuesYaml.options.timeout.time, unit: valuesYaml.options.timeout.unit){
+                       timeout(time: Integer.parseInt(valuesYaml.options.timeout.time), unit: valuesYaml.options.timeout.unit){
                            echo "something with timeout"
                        }
                    }
