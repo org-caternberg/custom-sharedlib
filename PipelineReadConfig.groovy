@@ -31,7 +31,7 @@ def generateDynamicEnvVars() {
     envVars['DYNAMIC_VARIABLE'] = 'dynamic_value'
     envVars['ANOTHER_VARIABLE'] = 'another_dynamic_value'
     // ADD CUSTOM  dynamic environment variables
-    loadValuesYaml().enviroments.eacheach { key, value ->
+    loadValuesYaml().enviroment.eacheach { key, value ->
         envVars["$key"] = "$value"
     }
     // Add more dynamic variables as needed
@@ -95,7 +95,7 @@ pipeline {
                     echo getYamlValue("appName")
                     //option3 use env vars
                     sh "echo $APP_NAME"
-                    echo "ENV VAR FROM yaml file: $EXAMPLE_KEY1"
+                    echo "ENV VAR FROM yaml file: ${EXAMPLE_KEY1}"
                 }
             }
         }
