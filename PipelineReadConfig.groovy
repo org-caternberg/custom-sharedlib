@@ -32,8 +32,8 @@ def generateDynamicEnvVars() {
     envVars.add("DYNAMIC_VARIABLE = dynamic_value")
     // ADD CUSTOM  dynamic environment variables
     println loadValuesYaml().environment
-    loadValuesYaml().environment.each { key, value ->
-        envVars.add("$key = $value")
+    loadValuesYaml().environment.each { env ->
+        envVars.add(evaluate(env))
         println "ADD ENV: $key = $value"
     }
     // Add more dynamic variables as needed
@@ -73,6 +73,11 @@ pipeline {
                 script {
                     valuesYaml = loadValuesYaml()
                     //println valuesYaml.getClass()
+                    prinln "DEBUG"
+                    loadValuesYaml().environment.each { key, value ->
+                        envVars.add("$key = $value")
+                        println "ADD ENV: $key = $value"
+                    }
                     properties([
                             // Generate dynamic parameters
                             //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
@@ -82,7 +87,7 @@ pipeline {
                     // Generate dynamic environment variables
                    // Define the environment block dynamically
                     environment {
-                        evaluate generateDynamicEnvVars()
+                         generateDynamicEnvVars()
                     }
 
 
