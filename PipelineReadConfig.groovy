@@ -64,14 +64,7 @@ pipeline {
             //yamlFile "${params.agentPod}.yaml"
         }
     }
-    environment {
-        APP_NAME = getYamlValue("appName")
-        //generateDynamicEnvVars()
-        loadValuesYaml().environment.each { env ->
-            println "ADD ENV: ${env}"
-            evaluate(env)
-        }
-    }
+
     stages {
         stage('Init') {
             steps {
@@ -85,7 +78,14 @@ pipeline {
                             // Generate dynamic environment variables
                     ])
 
-
+                    environment {
+                        env.APP_NAME = getYamlValue("appName")
+                        //generateDynamicEnvVars()
+                        loadValuesYaml().environment.each { env ->
+                            println "ADD ENV: ${env}"
+                            evaluate(env)
+                        }
+                    }
 
 
 
