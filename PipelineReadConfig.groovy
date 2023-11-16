@@ -78,17 +78,12 @@ pipeline {
 
                     //Generate options
                     if (valuesYaml.options.timestamps) {
-                            options{
-                                timestamps
-                            }
-
+                            timestamps
                     }
 
-            /*        if (valuesYaml.options.timeout) {
-                        options {
-                            timeout(time: valuesYaml.options.timeout.time, unit: valuesYaml.options.timeout.unit)
-                        }
-                    }*/
+                   if (valuesYaml.options.timeout) {
+                       timeout(time: valuesYaml.options.timeout.time, unit: valuesYaml.options.timeout.unit)
+                   }
 
                     environment {
                         env.APP_NAME = getYamlValue("appName")
