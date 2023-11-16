@@ -43,7 +43,9 @@ pipeline {
             }
         }
         stage('ReadAndExecSteps'){
-             execSteps(valuesYaml, "build")
+            steps {
+                execSteps(valuesYaml, "build")
+            }      
         }    
     }
 }
