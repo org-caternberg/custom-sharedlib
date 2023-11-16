@@ -19,9 +19,9 @@ def generateDynamicOptions() {
     options.add(disableResume())
     //ADD CUSTOM options from config yaml
     loadValuesYaml().options.each { o ->
-        options.add(evaluate(o))
+        evaluate(o)
     }
-    return options
+    //return options
 }
 
 // Generate parameters dynamically
@@ -83,7 +83,9 @@ pipeline {
                     valuesYaml = loadValuesYaml()
                     //println valuesYaml.getClass()
                     properties([
-                            generateDynamicOptions(),
+                            loadValuesYaml().options.each { o ->
+                                evaluate(o+",")
+                            },
                             // Generate dynamic parameters
                             //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
                             parameters(generateDynamicParams())
