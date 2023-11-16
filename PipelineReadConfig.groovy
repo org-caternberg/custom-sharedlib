@@ -13,6 +13,7 @@ def getYamlValue(x) {
 
 // Generate parameters dynamically
 def generateDynamicParams() {
+    println "GENERATE PARAMS"
     def params = []
     //ADD COMMON params
     params.add(booleanParam(name: 'ENABLE_TESTS', defaultValue: true, description: 'Enable tests?'))
@@ -25,14 +26,14 @@ def generateDynamicParams() {
 
 // Generate environment vars dynamically
 def generateDynamicEnvVars() {
+    println "GENERATE ENVIRONMENT"
     def envVars = []
     // ADD COMMON  dynamic environment variables
-
     envVars.add("DYNAMIC_VARIABLE = dynamic_value")
     // ADD CUSTOM  dynamic environment variables
+    println loadValuesYaml().environment
     loadValuesYaml().environment.each { key, value ->
         envVars.add("$key = $value")
-
         println "ADD ENV: $key = $value"
     }
     // Add more dynamic variables as needed
@@ -80,7 +81,6 @@ pipeline {
 
                     // Generate dynamic environment variables
                    // Define the environment block dynamically
-                    println "GENERATE ENVIRONMENT"
                     environment {
                         evaluate generateDynamicEnvVars()
                     }
