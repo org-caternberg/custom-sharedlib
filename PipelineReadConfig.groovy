@@ -83,7 +83,8 @@ pipeline {
                     println "GENERATE ENVIRONMENT"
                     environment {
                         generateDynamicEnvVars().each { key, value ->
-                            println "$key = $value"
+                            println "GEN"
+                            println "${key} = ${value}"
                             evaluate("${key}=${value}")
                         }
                     }
