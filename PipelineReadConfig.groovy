@@ -86,7 +86,7 @@ pipeline {
                     }
 
                     if (valuesYaml.options.timeout) {
-                       timeout(time: Integer.parseInt(valuesYaml.options.timeout.time), unit: valuesYaml.options.timeout.unit){
+                       timeout(time: valuesYaml.options.timeout.time, unit: valuesYaml.options.timeout.unit){
                            echo "something with timeout"
                        }
                    }
