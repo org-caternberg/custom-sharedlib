@@ -12,5 +12,5 @@ stage:
       exec: 'sh "mvn -version"'
     - name: "Step Verify"
       exec: 'echo "mvn verify"'
-    - name: "Step hello world"
-      exec: 'archiveArtifacts artifacts: "*", followSymlinks: false'
+#    - name: "Step hello world"
+#      exec: 'archiveArtifacts artifacts: "*", followSymlinks: false'
