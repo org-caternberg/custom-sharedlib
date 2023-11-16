@@ -11,17 +11,31 @@ def getYamlValue(x) {
     return loadValuesYaml()[x]
 }
 
+// Generate parameters dynamically
 def generateDynamicParams() {
     def params = []
-    // Generate parameters dynamically
-    // For example, let's add a boolean parameter
+    //ADD COMMON params
     params.add(booleanParam(name: 'ENABLE_TESTS', defaultValue: true, description: 'Enable tests?'))
-    valuesYaml = loadValuesYaml()
-    valuesYaml.params.each { p ->
+    //ADD CUSTOM params from config yaml
+    loadValuesYaml().params.each { p ->
         params.add(evaluate(p))
     }
-    // Add more parameters as needed
     return params
+}
+
+// Generate environment vars dynamically
+def generateDynamicEnvVars() {
+    def envVars = [:]
+    // ADD COMMON  dynamic environment variables
+    envVars['APP_NAME'] = getYamlValue("appName")
+    envVars['DYNAMIC_VARIABLE'] = 'dynamic_value'
+    envVars['ANOTHER_VARIABLE'] = 'another_dynamic_value'
+    // ADD CUSTOM  dynamic environment variables
+    loadValuesYaml().enviroments.eacheach { key, value ->
+        envVars["$key"] = "$value"
+    }
+    // Add more dynamic variables as needed
+    return envVars
 }
 
 def execCustomSteps(stageName) {
@@ -49,7 +63,6 @@ pipeline {
     }
 
     environment {
-        //read from yaml and assign to env var
         APP_NAME = getYamlValue("appName")
     }
     stages {
@@ -60,9 +73,18 @@ pipeline {
                     //println valuesYaml.getClass()
 
                     properties([
+                            // Generate dynamic parameters
                             //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
                             parameters(generateDynamicParams())
                     ])
+
+                    // Generate dynamic environment variables
+                   // Define the environment block dynamically
+                    environment {
+                        generateDynamicEnvVars().each { key, value ->
+                            "${key}" "${value}"
+                        }
+                    }
 
                     /*Examples on how to access values from yamlConfig*/
                     //option1
@@ -77,8 +99,8 @@ pipeline {
 
         stage('ReadAndExecSteps') {
             steps {
-                sh "echo 'here is common template step1'"
-                sh "echo 'here is common template step2'"
+                sh "echo 'here is common sample step1'"
+                sh "echo 'here is common sample step2'"
                 execCustomSteps("build")
             }
         }
