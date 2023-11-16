@@ -84,7 +84,7 @@ pipeline {
                     //println valuesYaml.getClass()
                     properties([
                             loadValuesYaml().options.each { o ->
-                                evaluate(o+",")
+                                evaluate(o)
                             },
                             // Generate dynamic parameters
                             //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
