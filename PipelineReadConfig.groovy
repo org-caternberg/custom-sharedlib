@@ -74,25 +74,22 @@ pipeline {
                 script {
                     valuesYaml = loadValuesYaml()
                     //println valuesYaml.getClass()
-                    println "DEBUG"
-                    loadValuesYaml().environment.each { env ->
-
-                        println "ADD ENV: $env"
-                    }
                     properties([
                             // Generate dynamic parameters
                             //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
                             parameters(generateDynamicParams())
+                            // Generate dynamic environment variables
+                            environment {
+                                //generateDynamicEnvVars()
+                                loadValuesYaml().environment.each { env ->
+                                    println "ADD ENV: ${env}"
+                                    evaluate(env)
+                                }
+                            }
                     ])
 
-                    // Generate dynamic environment variables
-                    environment {
-                        //generateDynamicEnvVars()
-                        loadValuesYaml().environment.each { env ->
-                            println "ADD ENV: ${env}"
-                            evaluate(env)
-                        }
-                    }
+
+
 
 
 
