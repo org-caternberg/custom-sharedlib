@@ -25,15 +25,15 @@ def generateDynamicParams() {
 
 // Generate environment vars dynamically
 def generateDynamicEnvVars() {
-    def envVars = [:]
+    def envVars = []
     // ADD COMMON  dynamic environment variables
-    envVars['APP_NAME'] = getYamlValue("appName")
-    envVars['DYNAMIC_VARIABLE'] = 'dynamic_value'
-    envVars['ANOTHER_VARIABLE'] = 'another_dynamic_value'
+
+    envVars.add("DYNAMIC_VARIABLE = dynamic_value")
     // ADD CUSTOM  dynamic environment variables
     loadValuesYaml().environment.each { key, value ->
-        envVars[key] = value
-        //println "$key = $value"
+        envVars.add("$key = $value")
+
+        println "ADD ENV: $key = $value"
     }
     // Add more dynamic variables as needed
     return envVars
@@ -82,11 +82,7 @@ pipeline {
                    // Define the environment block dynamically
                     println "GENERATE ENVIRONMENT"
                     environment {
-                        generateDynamicEnvVars().each { key, value ->
-                            println "GEN"
-                            println "${key} = ${value}"
-                            evaluate("${key}=${value}")
-                        }
+                        evaluate generateDynamicEnvVars()
                     }
 
 
