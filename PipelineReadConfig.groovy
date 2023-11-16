@@ -16,10 +16,10 @@ def generateDynamicOptions() {
     println "GENERATE OPTIONS"
     def options = []
     //ADD COMMON options
-    options.add(disableResume())
+    options.add(disableResume()+",")
     //ADD CUSTOM options from config yaml
     loadValuesYaml().options.each { o ->
-        options.add(evaluate(o))
+        options.add(evaluate(o)+",")
     }
     return options
 }
