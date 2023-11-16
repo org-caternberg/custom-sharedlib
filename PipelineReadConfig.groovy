@@ -35,6 +35,7 @@ def generateDynamicEnvVars() {
     loadValuesYaml().environment.each { env ->
         envVars.add(evaluate(env))
         println "ADD ENV: $key = $value"
+        evaluate(env)
     }
     // Add more dynamic variables as needed
     return envVars
