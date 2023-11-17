@@ -55,6 +55,12 @@ def execCustomSteps(stageName) {
     }
 }
 
+def props= "properties(timeout: unit: 'HOURS' time: 1,\
+           parameters([ \
+               string(defaultValue: '/tmp', name: 'Directory'), \
+               string(defaultValue: 'Dev', name: 'DEPLOY_ENV') \
+            ]))"
+
 pipeline {
     agent {
         kubernetes {
@@ -70,16 +76,7 @@ pipeline {
                 script {
                     valuesYaml = loadValuesYaml()
                     //println valuesYaml.getClass()
-                    properties([
-                            valuesYaml.options.each{option ->
-                                evaluate(option)
-                            },
-                            evaluate("buildDiscarder(logRotator(artifactDaysToKeepStr: '7', artifactNumToKeepStr: '5', daysToKeepStr: '7', numToKeepStr: '5'))"),
-                            // Generate dynamic parameters
-                            //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
-                            parameters(generateDynamicParams())
-                            // Generate dynamic environment variables
-                    ])
+                    evaluate(props)
 
                     //Generate options
                     if (valuesYaml.options.timestamps) {
