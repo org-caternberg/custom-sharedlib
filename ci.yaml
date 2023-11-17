@@ -1,15 +1,27 @@
+appName: "testapp"
 params:
   - "string(defaultValue: '/tmp', name: 'Directory')"
   - "string(defaultValue: 'Dev', name: 'DEPLOY_ENV')"
 options:
-  - "timeout(time: 1, unit: 'HOURS'),"
-  - "buildDiscarder(logRotator(daysToKeepStr: '7',numToKeepStr: '25'))"
+  skipDefaultCheckout: true
+  buildDiscarder:
+   - logRotator:
+     daysToKeepStr: '7'
+     numToKeepStr: '25'
+  skipStagesAfterUnstable: true
+  timestamps: true
+  timeout:
+    unit: "HOURS"
+    time: 1
+environment:
+  - "EXAMPLE_KEY1 = 'THIS IS AN EXAMPLE VALUE1 FROM CI YAML'"
+  - "EXAMPLE_KEY2 = 'THIS IS AN EXAMPLE VALUE2 FROM CI YAML'"
 stage:
   - name: build
     steps:
-    - name: "Step show version"
+    - name: "CUSTOM STEP show version"
       exec: 'sh "mvn -version"'
-    - name: "Step Verify"
+    - name: "CUSTOM STEP Verify"
       exec: 'echo "mvn verify"'
-    - name: "Step hello world"
-      exec: 'archiveArtifacts artifacts: "*", followSymlinks: false'
+#    - name: "CUSTOM STEP archiveArtifacts"
+#      exec: 'archiveArtifacts artifacts: "*", followSymlinks: false'

@@ -5,9 +5,9 @@ params:
 stage:
   - name: build
     steps:
-    - name: "Common step1"
+    - name: "COMMON STEP show version"
       exec: 'sh "mvn -version"'
-    - name: "Common step2"
+    - name: "COMMON STEP verify"
       exec: 'echo "mvn verify"'
-    - name: "Common step3"
-      exec: 'archiveArtifacts artifacts: "*", followSymlinks: false'
+    - name: "COMMON STEP hello world"
+      exec: 'echo "hello world"'
