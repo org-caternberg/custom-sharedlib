@@ -93,6 +93,7 @@ pipeline {
                     sh "echo ${env.APP_NAME}"
                     echo "ENV VAR EXAMPLE_KEY1 FROM yaml file: ${env.EXAMPLE_KEY1}"
                     echo "ENV VAR EXAMPLE_KEY2 FROM yaml file: ${env.EXAMPLE_KEY2}"
+                    echo "PARAM BOOL1: ${params.bool1}"
                 }
             }
         }
@@ -109,6 +110,7 @@ pipeline {
                 sh "echo ${env.APP_NAME}"
                 echo "ENV VAR EXAMPLE_KEY1 FROM yaml file: ${env.EXAMPLE_KEY1}"
                 echo "ENV VAR EXAMPLE_KEY2 FROM yaml file: ${env.EXAMPLE_KEY2}"
+                echo "PARAM BOOL2: ${params.bool2}"
             }
         }
     }
