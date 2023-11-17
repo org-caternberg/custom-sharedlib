@@ -11,19 +11,7 @@ def getYamlValue(x) {
     return loadValuesYaml()[x]
 }
 
-// Generate parameters dynamically
-//see https://docs.cloudbees.com/docs/cloudbees-ci/latest/automating-with-jenkinsfile/customizing-parameters
-def generateDynamicParams() {
-    println "GENERATE PARAMS"
-    def params = []
-    //ADD COMMON params
-    params.add(booleanParam(name: 'ENABLE_TESTS', defaultValue: true, description: 'Enable tests?'))
-    //ADD CUSTOM params from config yaml
-    loadValuesYaml().params.each { p ->
-        params.add(evaluate(p))
-    }
-    return params
-}
+
 
 def execCustomSteps(stageName) {
         loadValuesYaml().stage.each { stage ->
@@ -39,7 +27,20 @@ def execCustomSteps(stageName) {
     }
 }
 
-def props= "properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '1')), parameters([booleanParam(description: 'qwq', name: 'ewew')]), pipelineTriggers([pollSCM('* * * * *')])])"
+// Generate parameters dynamically
+//see https://docs.cloudbees.com/docs/cloudbees-ci/latest/automating-with-jenkinsfile/customizing-parameters
+//NOT USED
+def generateDynamicParams() {
+    println "GENERATE PARAMS"
+    def params = []
+    //ADD COMMON params
+    params.add(booleanParam(name: 'ENABLE_TESTS', defaultValue: true, description: 'Enable tests?'))
+    //ADD CUSTOM params from config yaml
+    loadValuesYaml().params.each { p ->
+        params.add(evaluate(p))
+    }
+    return params
+}
 
 pipeline {
     agent {
@@ -65,7 +66,6 @@ pipeline {
                     env.APP_NAME = getYamlValue("appName")
                     loadValuesYaml().environment.each { environmentVar ->
                         evaluate("env."+environmentVar)
-                        println "ADD ENV: $environmentVar"
                     }
 
                     /*Examples on how to access values from yamlConfig*/
@@ -85,7 +85,10 @@ pipeline {
             steps {
                 sh "echo 'here is common sample step1'"
                 sh "echo 'here is common sample step2'"
+
+                //Execute custom steps
                 execCustomSteps("build")
+
                 //Example3 use env vars
                 sh "echo ${env.APP_NAME}"
                 echo "ENV VAR FROM yaml file: ${env.EXAMPLE_KEY1}"
