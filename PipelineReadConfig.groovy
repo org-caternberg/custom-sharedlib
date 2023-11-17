@@ -43,18 +43,6 @@ def execCommonSteps(stageName) {
     }
 }
 
-def getCommonSteps (stageName){
-    ciCommonConfig = readYaml text: libraryResource ("pipeline-config/ci.yaml")
-    //echo "${ciCommonConfig}"
-    ciCommonConfig.stage.each { it ->
-        //echo "stage.nane: $it.name, stageName: ${stageName}"
-        if ("$it.name" == "${it}") {
-            return it.steps
-        }
-    }
-    return null;
-}
-
 pipeline {
     agent {
         kubernetes {
