@@ -71,7 +71,7 @@ pipeline {
                     valuesYaml = loadValuesYaml()
                     //println valuesYaml.getClass()
                     properties([
-                            buildDiscarder(logRotator(artifactDaysToKeepStr: '7', artifactNumToKeepStr: '5', daysToKeepStr: '7', numToKeepStr: '5')),
+                            evaluate("buildDiscarder(logRotator(artifactDaysToKeepStr: '7', artifactNumToKeepStr: '5', daysToKeepStr: '7', numToKeepStr: '5'))"),
                             disableConcurrentBuilds(),
                             // Generate dynamic parameters
                             //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
