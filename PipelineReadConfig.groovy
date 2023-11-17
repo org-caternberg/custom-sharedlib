@@ -55,11 +55,7 @@ def execCustomSteps(stageName) {
     }
 }
 
-def props= "properties(timeout: unit: 'HOURS' time: 1,\
-           parameters([ \
-               string(defaultValue: '/tmp', name: 'Directory'), \
-               string(defaultValue: 'Dev', name: 'DEPLOY_ENV') \
-            ]))"
+def props= "properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '1')), parameters([booleanParam(description: 'qwq', name: 'ewew')]), pipelineTriggers([pollSCM('* * * * *')])])"
 
 pipeline {
     agent {
