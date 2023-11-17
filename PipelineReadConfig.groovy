@@ -54,24 +54,29 @@ pipeline {
         stage('Init') {
             steps {
                 script {
+                    //Load config
                     valuesYaml = loadValuesYaml()
                     //println valuesYaml.getClass()
+
+                    //generate properties, global options and parameters
                     evaluate(valuesYaml.properties)
 
+                    //generate global environment vars
                     env.APP_NAME = getYamlValue("appName")
                     loadValuesYaml().environment.each { environmentVar ->
                         evaluate("env."+environmentVar)
-                        println "ADD ENV: environmentVar"
+                        println "ADD ENV: $environmentVar"
                     }
 
                     /*Examples on how to access values from yamlConfig*/
-                    //option1
+                    //Example1
                     echo valuesYaml.appName
-                    //option2
+                    //Example2
                     echo getYamlValue("appName")
-                    //option3 use env vars
+                    //Example3 use env vars
                     sh "echo ${env.APP_NAME}"
                     echo "ENV VAR FROM yaml file: ${env.EXAMPLE_KEY1}"
+                    echo "ENV VAR FROM yaml file: ${env.EXAMPLE_KEY2}"
                 }
             }
         }
@@ -81,6 +86,10 @@ pipeline {
                 sh "echo 'here is common sample step1'"
                 sh "echo 'here is common sample step2'"
                 execCustomSteps("build")
+                //Example3 use env vars
+                sh "echo ${env.APP_NAME}"
+                echo "ENV VAR FROM yaml file: ${env.EXAMPLE_KEY1}"
+                echo "ENV VAR FROM yaml file: ${env.EXAMPLE_KEY2}"
             }
         }
     }
