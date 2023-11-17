@@ -1,7 +1,7 @@
 appName: "testapp"
 properties: "properties([ \
       buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '1')), \
-      parameters([booleanParam(description: 'qwq', name: 'ewew')]), \
+      parameters([booleanParam(description: 'mybooleanparam', name: 'mybooleanparam')]), \
       pipelineTriggers([pollSCM('* * * * *')]) \
   ])"
 environment:
