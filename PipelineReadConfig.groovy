@@ -11,7 +11,6 @@ def getYamlValue(x) {
     return loadValuesYaml()[x]
 }
 
-
 def execCustomSteps(stageName) {
         loadValuesYaml().stage.each { stage ->
         echo "stage.nane: $stage.name, stageName: ${stageName}"
@@ -21,13 +20,14 @@ def execCustomSteps(stageName) {
                 echo step.exec
                 evaluate(step.exec)
             }
-            return 0;
+            return null;
         }
     }
 }
 
 //https://blog.jdriven.com/2020/03/groovy-goodness-parse-yaml-with-yamlslurper/
 //import groovy.yaml.YamlSlurper
+//We want to avoid the yaml YamlSlurper!
 def execCommonSteps(stageName) {
     commonConfig = readYaml text: libraryResource ("pipeline-config/ci.yaml")
     commonConfig.stage.each { stage ->
@@ -44,9 +44,9 @@ def execCommonSteps(stageName) {
 }
 
 def getCommonSteps (stageName){
-    ciCoomonConfig = readYaml text: libraryResource ("pipeline-config/ci.yaml")
-    echo "${ciCoomonConfig}"
-    ciCoomonConfig.stage.each { it ->
+    ciCommonConfig = readYaml text: libraryResource ("pipeline-config/ci.yaml")
+    //echo "${ciCommonConfig}"
+    ciCommonConfig.stage.each { it ->
         //echo "stage.nane: $it.name, stageName: ${stageName}"
         if ("$it.name" == "${it}") {
             return it.steps
@@ -81,7 +81,6 @@ pipeline {
                     loadValuesYaml().environment.each { environmentVar ->
                         evaluate("env."+environmentVar)
                     }
-
                     /**
                      * Examples on how to access values from yamlConfig
                      * */
@@ -93,6 +92,7 @@ pipeline {
                     sh "echo ${env.APP_NAME}"
                     echo "ENV VAR EXAMPLE_KEY1 FROM yaml file: ${env.EXAMPLE_KEY1}"
                     echo "ENV VAR EXAMPLE_KEY2 FROM yaml file: ${env.EXAMPLE_KEY2}"
+                    echo "PARAM BOOL1: ${params.bool1}"
                 }
             }
         }
@@ -109,6 +109,7 @@ pipeline {
                 sh "echo ${env.APP_NAME}"
                 echo "ENV VAR EXAMPLE_KEY1 FROM yaml file: ${env.EXAMPLE_KEY1}"
                 echo "ENV VAR EXAMPLE_KEY2 FROM yaml file: ${env.EXAMPLE_KEY2}"
+                echo "PARAM BOOL2: ${params.bool2}"
             }
         }
     }

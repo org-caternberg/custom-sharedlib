@@ -1,9 +1,13 @@
 appName: "testapp"
 properties: "properties([ \
-      buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '1')), \
-      parameters([booleanParam(description: 'mybooleanparam', name: 'mybooleanparam')]), \
-      pipelineTriggers([pollSCM('* * * * *')]) \
-  ])"
+    buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), \
+    disableConcurrentBuilds(), \
+    parameters([ \
+      booleanParam('bool1'), \
+      booleanParam('bool2') \
+    ]), \
+    rateLimitBuilds([count: 1, durationName: 'second', userBoost: false]) \
+])"
 environment:
   - "EXAMPLE_KEY1 = 'THIS IS AN EXAMPLE VALUE1 FROM CI YAML'"
   - "EXAMPLE_KEY2 = 'THIS IS AN EXAMPLE VALUE2 FROM CI YAML'"
