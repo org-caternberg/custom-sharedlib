@@ -25,22 +25,6 @@ def generateDynamicParams() {
     return params
 }
 
-// Generate environment vars dynamically
-def generateDynamicEnvVars() {
-    println "GENERATE ENVIRONMENT"
-    def envVars = []
-    // ADD COMMON  dynamic environment variables
-    envVars.add("DYNAMIC_VARIABLE = dynamic_value")
-    // ADD CUSTOM  dynamic environment variables
-    println loadValuesYaml().environment
-    loadValuesYaml().environment.each { env ->
-        envVars.add(evaluate(env))
-        println "ADD ENV: $env"
-    }
-    // Add more dynamic variables as needed
-    return envVars.toString()
-}
-
 def execCustomSteps(stageName) {
         loadValuesYaml().stage.each { stage ->
         echo "stage.nane: $stage.name, stageName: ${stageName}"
@@ -75,7 +59,10 @@ pipeline {
                     evaluate(valuesYaml.properties)
 
                     env.APP_NAME = getYamlValue("appName")
-                    evaluate(generateDynamicEnvVars())
+                    loadValuesYaml().environment.each { environmentVar ->
+                        evaluate("env."+environmentVar)
+                        println "ADD ENV: environmentVar"
+                    }
 
                     /*Examples on how to access values from yamlConfig*/
                     //option1
