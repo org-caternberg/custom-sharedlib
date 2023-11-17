@@ -82,7 +82,7 @@ pipeline {
                     loadValuesYaml().environment.each { environmentVar ->
                         evaluate("env."+environmentVar)
                     }
-                    println "RUUNING FIRST
+                    println "RUUNING FIRST"
                     /**
                      * Examples on how to access values from yamlConfig
                      * */
