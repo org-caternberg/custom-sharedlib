@@ -1,5 +1,9 @@
 appName: "testapp"
-properties: "properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '1')), parameters([booleanParam(description: 'qwq', name: 'ewew')]), pipelineTriggers([pollSCM('* * * * *')])])"
+properties: "properties([ \
+      buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '1')), \
+      parameters([booleanParam(description: 'qwq', name: 'ewew')]), \
+      pipelineTriggers([pollSCM('* * * * *')]) \
+  ])"
 environment:
   - "EXAMPLE_KEY1 = 'THIS IS AN EXAMPLE VALUE1 FROM CI YAML'"
   - "EXAMPLE_KEY2 = 'THIS IS AN EXAMPLE VALUE2 FROM CI YAML'"
