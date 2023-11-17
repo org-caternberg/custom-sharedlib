@@ -67,8 +67,6 @@ pipeline {
     stages {
         stage('Init') {
             steps {
-                echo "RUNNING SECOND"
-                echo "PARAM BOOL3: ${params.bool3}"
                 script {
                     //Load config
                     valuesYaml = loadValuesYaml()
@@ -83,7 +81,6 @@ pipeline {
                     loadValuesYaml().environment.each { environmentVar ->
                         evaluate("env."+environmentVar)
                     }
-                    println "RUUNING FIRST"
                     /**
                      * Examples on how to access values from yamlConfig
                      * */
@@ -96,7 +93,6 @@ pipeline {
                     echo "ENV VAR EXAMPLE_KEY1 FROM yaml file: ${env.EXAMPLE_KEY1}"
                     echo "ENV VAR EXAMPLE_KEY2 FROM yaml file: ${env.EXAMPLE_KEY2}"
                     echo "PARAM BOOL1: ${params.bool1}"
-                    echo "PARAM SCRIPT BOOL3: ${params.bool3}"
                 }
             }
         }
