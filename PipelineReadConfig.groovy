@@ -12,7 +12,6 @@ def getYamlValue(x) {
 }
 
 
-
 def execCustomSteps(stageName) {
         loadValuesYaml().stage.each { stage ->
         echo "stage.nane: $stage.name, stageName: ${stageName}"
@@ -26,6 +25,37 @@ def execCustomSteps(stageName) {
         }
     }
 }
+
+//https://blog.jdriven.com/2020/03/groovy-goodness-parse-yaml-with-yamlslurper/
+//import groovy.yaml.YamlSlurper
+def execCommonSteps(stageName) {
+    commonConfig = readYaml text: libraryResource ("pipeline-config/ci.yaml")
+    commonConfig.stage.each { stage ->
+        //echo "stage.nane: $stage.name, stageName: ${stageName}"
+        if ("$stage.name" == "${stageName}") {
+            stage.steps.each { step ->
+                echo step.name
+                echo step.exec
+                evaluate(step.exec)
+            }
+            return null;
+        }
+    }
+}
+
+def getCommonSteps (stageName){
+    ciCoomonConfig = readYaml text: libraryResource ("pipeline-config/ci.yaml")
+    echo "${ciCoomonConfig}"
+    ciCoomonConfig.stage.each { it ->
+        //echo "stage.nane: $it.name, stageName: ${stageName}"
+        if ("$it.name" == "${it}") {
+            return it.steps
+        }
+    }
+    return null;
+}
+
+
 
 // Generate parameters dynamically
 //see https://docs.cloudbees.com/docs/cloudbees-ci/latest/automating-with-jenkinsfile/customizing-parameters
@@ -83,8 +113,8 @@ pipeline {
 
         stage('ReadAndExecSteps') {
             steps {
-                sh "echo 'here is common sample step1'"
-                sh "echo 'here is common sample step2'"
+                //Execute custom steps
+                execCommonSteps("build")
 
                 //Execute custom steps
                 execCustomSteps("build")
