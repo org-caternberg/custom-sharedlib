@@ -72,7 +72,7 @@ pipeline {
                 script {
                     valuesYaml = loadValuesYaml()
                     //println valuesYaml.getClass()
-                    evaluate(props)
+                    evaluate(valuesYaml.properties)
 
                     //Generate options
                     if (valuesYaml.options.timestamps) {
