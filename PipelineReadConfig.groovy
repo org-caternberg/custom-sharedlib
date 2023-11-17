@@ -11,35 +11,6 @@ def getYamlValue(x) {
     return loadValuesYaml()[x]
 }
 
-// Generate parameters dynamically
-//see https://docs.cloudbees.com/docs/cloudbees-ci/latest/automating-with-jenkinsfile/customizing-parameters
-def generateDynamicParams() {
-    println "GENERATE PARAMS"
-    def params = []
-    //ADD COMMON params
-    params.add(booleanParam(name: 'ENABLE_TESTS', defaultValue: true, description: 'Enable tests?'))
-    //ADD CUSTOM params from config yaml
-    loadValuesYaml().params.each { p ->
-        params.add(evaluate(p))
-    }
-    return params
-}
-
-// Generate environment vars dynamically
-def generateDynamicEnvVars() {
-    println "GENERATE ENVIRONMENT"
-    def envVars = []
-    // ADD COMMON  dynamic environment variables
-    envVars.add("DYNAMIC_VARIABLE = dynamic_value")
-    // ADD CUSTOM  dynamic environment variables
-    println loadValuesYaml().environment
-    loadValuesYaml().environment.each { env ->
-        envVars.add(evaluate(env))
-        println "ADD ENV: $env"
-    }
-    // Add more dynamic variables as needed
-    return envVars.toString()
-}
 
 def execCustomSteps(stageName) {
         loadValuesYaml().stage.each { stage ->
@@ -55,6 +26,35 @@ def execCustomSteps(stageName) {
     }
 }
 
+//https://blog.jdriven.com/2020/03/groovy-goodness-parse-yaml-with-yamlslurper/
+//import groovy.yaml.YamlSlurper
+def execCommonSteps(stageName) {
+    commonConfig = readYaml text: libraryResource ("pipeline-config/ci.yaml")
+    commonConfig.stage.each { stage ->
+        //echo "stage.nane: $stage.name, stageName: ${stageName}"
+        if ("$stage.name" == "${stageName}") {
+            stage.steps.each { step ->
+                echo step.name
+                echo step.exec
+                evaluate(step.exec)
+            }
+            return null;
+        }
+    }
+}
+
+def getCommonSteps (stageName){
+    ciCoomonConfig = readYaml text: libraryResource ("pipeline-config/ci.yaml")
+    echo "${ciCoomonConfig}"
+    ciCoomonConfig.stage.each { it ->
+        //echo "stage.nane: $it.name, stageName: ${stageName}"
+        if ("$it.name" == "${it}") {
+            return it.steps
+        }
+    }
+    return null;
+}
+
 pipeline {
     agent {
         kubernetes {
@@ -68,50 +68,47 @@ pipeline {
         stage('Init') {
             steps {
                 script {
+                    //Load config
                     valuesYaml = loadValuesYaml()
                     //println valuesYaml.getClass()
-                    properties([
-                            // Generate dynamic parameters
-                            //see https://stackoverflow.com/questions/44570163/jenkins-dynamic-declarative-pipeline-parameters
-                            parameters(generateDynamicParams())
-                            // Generate dynamic environment variables
-                    ])
 
-                    //Generate options
-                    if (valuesYaml.options.timestamps) {
-                            timestamps{}
-                    }
-                    if (valuesYaml.options.buildDiscarder) {
-                        buildDiscarder logRotator(artifactDaysToKeepStr: '2', artifactNumToKeepStr: '2', daysToKeepStr: '1', numToKeepStr: '1')
+                    //generate properties, global options and parameters
+                    //see https://docs.cloudbees.com/docs/cloudbees-ci/latest/automating-with-jenkinsfile/customizing-parameters
+                    evaluate(valuesYaml.properties)
+
+                    //generate global environment vars
+                    env.APP_NAME = getYamlValue("appName")
+                    loadValuesYaml().environment.each { environmentVar ->
+                        evaluate("env."+environmentVar)
                     }
 
-                    if (valuesYaml.options.timeout) {
-                       timeout(time: valuesYaml.options.timeout.time, unit: valuesYaml.options.timeout.unit){
-                           echo "something with timeout"
-                       }
-                   }
-
-                    environment {
-                        env.APP_NAME = getYamlValue("appName")
-                        evaluate(generateDynamicEnvVars())
-                    }
-                    /*Examples on how to access values from yamlConfig*/
-                    //option1
+                    /**
+                     * Examples on how to access values from yamlConfig
+                     * */
+                    //Example1
                     echo valuesYaml.appName
-                    //option2
+                    //Example2
                     echo getYamlValue("appName")
-                    //option3 use env vars
+                    //Example3 use env vars
                     sh "echo ${env.APP_NAME}"
-                    echo "ENV VAR FROM yaml file: ${env.EXAMPLE_KEY1}"
+                    echo "ENV VAR EXAMPLE_KEY1 FROM yaml file: ${env.EXAMPLE_KEY1}"
+                    echo "ENV VAR EXAMPLE_KEY2 FROM yaml file: ${env.EXAMPLE_KEY2}"
                 }
             }
         }
 
         stage('ReadAndExecSteps') {
             steps {
-                sh "echo 'here is common sample step1'"
-                sh "echo 'here is common sample step2'"
+                //Execute custom steps
+                execCommonSteps("build")
+
+                //Execute custom steps
                 execCustomSteps("build")
+
+                //Example3 use env vars
+                sh "echo ${env.APP_NAME}"
+                echo "ENV VAR EXAMPLE_KEY1 FROM yaml file: ${env.EXAMPLE_KEY1}"
+                echo "ENV VAR EXAMPLE_KEY2 FROM yaml file: ${env.EXAMPLE_KEY2}"
             }
         }
     }

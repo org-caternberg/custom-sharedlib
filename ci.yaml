@@ -1,18 +1,9 @@
 appName: "testapp"
-params:
-  - "string(defaultValue: '/tmp', name: 'Directory')"
-  - "string(defaultValue: 'Dev', name: 'DEPLOY_ENV')"
-options:
-  skipDefaultCheckout: true
-  buildDiscarder:
-   - logRotator:
-     daysToKeepStr: '7'
-     numToKeepStr: '25'
-  skipStagesAfterUnstable: true
-  timestamps: true
-  timeout:
-    unit: "HOURS"
-    time: 1
+properties: "properties([ \
+      buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '1')), \
+      parameters([booleanParam(description: 'mybooleanparam', name: 'mybooleanparam')]), \
+      pipelineTriggers([pollSCM('* * * * *')]) \
+  ])"
 environment:
   - "EXAMPLE_KEY1 = 'THIS IS AN EXAMPLE VALUE1 FROM CI YAML'"
   - "EXAMPLE_KEY2 = 'THIS IS AN EXAMPLE VALUE2 FROM CI YAML'"
@@ -21,6 +12,8 @@ stage:
     steps:
     - name: "CUSTOM STEP show version"
       exec: 'sh "mvn -version"'
+    - name: "CUSTOM STEP show version MVN Lib Wrapper"
+      exec: 'mvn "-version"'
     - name: "CUSTOM STEP Verify"
       exec: 'echo "mvn verify"'
 #    - name: "CUSTOM STEP archiveArtifacts"
