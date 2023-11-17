@@ -72,7 +72,7 @@ pipeline {
                     //println valuesYaml.getClass()
                     properties([
                             valuesYaml.options.each{option ->
-                                ecaluate(option)
+                                evaluate(option)
                             },
                             evaluate("buildDiscarder(logRotator(artifactDaysToKeepStr: '7', artifactNumToKeepStr: '5', daysToKeepStr: '7', numToKeepStr: '5'))"),
                             // Generate dynamic parameters
