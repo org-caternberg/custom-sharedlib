@@ -55,23 +55,6 @@ def getCommonSteps (stageName){
     return null;
 }
 
-
-
-// Generate parameters dynamically
-//see https://docs.cloudbees.com/docs/cloudbees-ci/latest/automating-with-jenkinsfile/customizing-parameters
-//NOT USED
-def generateDynamicParams() {
-    println "GENERATE PARAMS"
-    def params = []
-    //ADD COMMON params
-    params.add(booleanParam(name: 'ENABLE_TESTS', defaultValue: true, description: 'Enable tests?'))
-    //ADD CUSTOM params from config yaml
-    loadValuesYaml().params.each { p ->
-        params.add(evaluate(p))
-    }
-    return params
-}
-
 pipeline {
     agent {
         kubernetes {
@@ -90,6 +73,7 @@ pipeline {
                     //println valuesYaml.getClass()
 
                     //generate properties, global options and parameters
+                    //see https://docs.cloudbees.com/docs/cloudbees-ci/latest/automating-with-jenkinsfile/customizing-parameters
                     evaluate(valuesYaml.properties)
 
                     //generate global environment vars
@@ -98,15 +82,17 @@ pipeline {
                         evaluate("env."+environmentVar)
                     }
 
-                    /*Examples on how to access values from yamlConfig*/
+                    /**
+                     * Examples on how to access values from yamlConfig
+                     * */
                     //Example1
                     echo valuesYaml.appName
                     //Example2
                     echo getYamlValue("appName")
                     //Example3 use env vars
                     sh "echo ${env.APP_NAME}"
-                    echo "ENV VAR FROM yaml file: ${env.EXAMPLE_KEY1}"
-                    echo "ENV VAR FROM yaml file: ${env.EXAMPLE_KEY2}"
+                    echo "ENV VAR EXAMPLE_KEY1 FROM yaml file: ${env.EXAMPLE_KEY1}"
+                    echo "ENV VAR EXAMPLE_KEY2 FROM yaml file: ${env.EXAMPLE_KEY2}"
                 }
             }
         }
@@ -121,8 +107,8 @@ pipeline {
 
                 //Example3 use env vars
                 sh "echo ${env.APP_NAME}"
-                echo "ENV VAR FROM yaml file: ${env.EXAMPLE_KEY1}"
-                echo "ENV VAR FROM yaml file: ${env.EXAMPLE_KEY2}"
+                echo "ENV VAR EXAMPLE_KEY1 FROM yaml file: ${env.EXAMPLE_KEY1}"
+                echo "ENV VAR EXAMPLE_KEY2 FROM yaml file: ${env.EXAMPLE_KEY2}"
             }
         }
     }
