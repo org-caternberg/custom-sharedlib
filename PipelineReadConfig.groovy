@@ -74,24 +74,9 @@ pipeline {
                     //println valuesYaml.getClass()
                     evaluate(valuesYaml.properties)
 
-                    //Generate options
-                    if (valuesYaml.options.timestamps) {
-                            timestamps{}
-                    }
-                    if (valuesYaml.options.buildDiscarder) {
-                        buildDiscarder logRotator(artifactDaysToKeepStr: '2', artifactNumToKeepStr: '2', daysToKeepStr: '1', numToKeepStr: '1')
-                    }
+                    env.APP_NAME = getYamlValue("appName")
+                    evaluate(generateDynamicEnvVars())
 
-                    if (valuesYaml.options.timeout) {
-                       timeout(time: valuesYaml.options.timeout.time, unit: valuesYaml.options.timeout.unit){
-                           echo "something with timeout"
-                       }
-                   }
-
-                    environment {
-                        env.APP_NAME = getYamlValue("appName")
-                        evaluate(generateDynamicEnvVars())
-                    }
                     /*Examples on how to access values from yamlConfig*/
                     //option1
                     echo valuesYaml.appName
