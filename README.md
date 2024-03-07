@@ -21,6 +21,8 @@ The objectives are:
 * Jenkins file path is 'PipelineReadConfig.groovy'
 
 ![PipelinConfig](images/Pipelineconfig.png)
+![PipelinRun](images/Pipelinerun.png)
+
 
 # Steps
 
