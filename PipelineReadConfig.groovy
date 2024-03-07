@@ -1,4 +1,6 @@
-library 'shared-lib' _
+library identifier: 'ci-shared-library@main', retriever: modernSCM(
+        [$class: 'GitSCMSource',
+         remote: 'https://github.com/org-caternberg/custom-sharedlib.git'])
 def mavenPod = libraryResource 'podagents/podTemplate-prod.yaml'
 
 //see https://stackoverflow.com/questions/57261787/use-object-returned-by-readyaml-from-file-in-declarative-jenkinsfile
