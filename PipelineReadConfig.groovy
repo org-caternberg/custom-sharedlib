@@ -1,7 +1,7 @@
 library identifier: 'custom-shared-lib@main', retriever: modernSCM(
         [$class: 'GitSCMSource',
          remote: 'https://github.com/org-caternberg/custom-sharedlib.git'])
-def mavenPod = libraryResource 'podagents/podTemplate-prod.yaml'
+def mavenPod = libraryResource 'podagents/podTemplate-maven.yaml'
 
 //see https://stackoverflow.com/questions/57261787/use-object-returned-by-readyaml-from-file-in-declarative-jenkinsfile
 def loadValuesYaml() {
