@@ -31,7 +31,7 @@ def execCustomSteps(stageName) {
 //import groovy.yaml.YamlSlurper
 //We want to avoid the yaml YamlSlurper!
 def execCommonSteps(stageName) {
-    commonConfig = readYaml text: libraryResource ("pipeline-config/ci.yaml")
+    commonConfig = readYaml text: libraryResource ("pipeline-config/ci-common.yaml")
     commonConfig.stage.each { stage ->
         //echo "stage.nane: $stage.name, stageName: ${stageName}"
         if ("$stage.name" == "${stageName}") {
