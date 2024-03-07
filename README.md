@@ -20,6 +20,8 @@ The objectives are:
 * Create a Pipeline job, use Pipeline from SCM (this repo)
 * Jenkins file path is 'PipelineReadConfig.groovy'
 
+![PipelinConfig](images/Pipelineconfig.png)
+
 # Steps
 
 sh steps and shell scripts/steps
