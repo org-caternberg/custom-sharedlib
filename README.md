@@ -5,8 +5,8 @@
 
 # Current State and Objectives
 
-This repo shows approaches for implementing a new Pipeline design
-The objectives for a new SharedLibrary and Pipeline design are:
+This repo shows samples for reading properties from a yaml properties files
+The objectives are:
 
 * Reducing the complexity of Shared Library design and implementation
 * Developers can bring their own steps/or properties with Yaml config
