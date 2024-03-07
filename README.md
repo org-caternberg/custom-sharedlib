@@ -17,10 +17,8 @@ The objectives are:
 
 # How to start
 
-* setup a global shared library with this repo
-* Name it "shared-lib"
 * Create a Pipeline job, use Pipeline from SCM (this repo)
-* Jenkins file path is 'PipelineReadConfig.yaml'
+* Jenkins file path is 'PipelineReadConfig.groovy'
 
 # Steps
 
