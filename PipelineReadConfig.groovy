@@ -1,4 +1,4 @@
-library identifier: 'ci-shared-library@main', retriever: modernSCM(
+library identifier: 'custom-shared-lib@main', retriever: modernSCM(
         [$class: 'GitSCMSource',
          remote: 'https://github.com/org-caternberg/custom-sharedlib.git'])
 def mavenPod = libraryResource 'podagents/podTemplate-prod.yaml'
