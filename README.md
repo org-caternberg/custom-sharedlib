@@ -5,15 +5,9 @@
 
 # Current State and Objectives
 
-This repo shows samples for reading properties from a yaml properties files
-The objectives are:
+This repo shows samples for reading properties from a yaml properties files.
 
-* Reducing the complexity of Shared Library design and implementation
-* Developers can bring their own steps/or properties with Yaml config
-* Reusability and testability
-* Avoid [Script Approvals](https://www.jenkins.io/doc/book/managing/script-approval/#in-process-script-approval)
-* Better adoption and templating capabilities
-* Faster Pipeline/SharedLib development
+The objectives is that Developers can bring their own steps/or properties with Yaml config (read from branch)
 
 # How to start
 
