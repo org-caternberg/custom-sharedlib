@@ -3,7 +3,7 @@ properties: "properties([ \
     buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), \
     disableConcurrentBuilds(), \
     parameters([ \
-      booleanParam('bool1'), \
+      booleanParam('bool5'), \
       booleanParam('bool4') \
     ]), \
     rateLimitBuilds([count: 1, durationName: 'second', userBoost: false]) \
