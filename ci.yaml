@@ -4,7 +4,7 @@ properties: "properties([ \
     disableConcurrentBuilds(), \
     parameters([ \
       booleanParam('bool1'), \
-      booleanParam('bool2') \
+      booleanParam('bool2'), \
       booleanParam('bool3') \
     ]), \
     rateLimitBuilds([count: 1, durationName: 'second', userBoost: false]) \
